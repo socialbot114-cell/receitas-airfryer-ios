@@ -57,7 +57,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: br.com.receitasairfyer.tests
-        TEST_HOST: $(BUILT_PRODUCTS_DIR)/Receitas\ Airfryer.app/Receitas\ Airfryer
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/Receitas Airfryer.app/Receitas Airfryer
         BUNDLE_LOADER: $(TEST_HOST)
         GENERATE_INFOPLIST_FILE: YES
   ReceitasAirfryerUITests:
