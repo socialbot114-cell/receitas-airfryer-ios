@@ -1,0 +1,37 @@
+name: Airfryer iOS Screenshots
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  screenshots:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        working-directory: iosApp
+        run: xcodegen generate
+      - name: Capture screenshots
+        working-directory: iosApp
+        run: |
+          set -euo pipefail
+          xcodebuild test \
+            -project ReceitasAirfryer.xcodeproj \
+            -scheme ReceitasAirfryer \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.5' \
+            -resultBundlePath "$RUNNER_TEMP/airfryer.xcresult" \
+            -only-testing:ReceitasAirfryerUITests \
+            CODE_SIGNING_ALLOWED=NO
+          mkdir -p "$RUNNER_TEMP/airfryer-screenshots"
+          xcrun xcresulttool export attachments \
+            --path "$RUNNER_TEMP/airfryer.xcresult" \
+            --output-path "$RUNNER_TEMP/airfryer-screenshots"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: airfryer-ios-screenshots
+          path: ${{ runner.temp }}/airfryer-screenshots

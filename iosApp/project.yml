@@ -40,6 +40,7 @@ targets:
     scheme:
       testTargets:
         - ReceitasAirfryerTests
+        - ReceitasAirfryerUITests
   ReceitasAirfryerTests:
     type: bundle.unit-test
     platform: iOS
@@ -59,3 +60,9 @@ targets:
         TEST_HOST: $(BUILT_PRODUCTS_DIR)/Receitas\ Airfryer.app/Receitas\ Airfryer
         BUNDLE_LOADER: $(TEST_HOST)
         GENERATE_INFOPLIST_FILE: YES
+  ReceitasAirfryerUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [UITests]
+    dependencies:
+      - target: ReceitasAirfryer
