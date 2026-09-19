@@ -16,17 +16,34 @@ struct HomeView: View {
     @EnvironmentObject private var store: RecipeStore
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    Image("start_receitas_vovo").resizable().scaledToFill().frame(height: 180).clipShape(RoundedRectangle(cornerRadius: 24))
-                    Text("Cozinhe algo gostoso hoje").font(.largeTitle.bold())
-                    Text("Receitas práticas para sua Airfryer, sem complicação.").foregroundStyle(.secondary)
-                    Text("Escolha uma receita").font(.title2.bold())
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 14) {
-                        ForEach(Array(store.repository.payload.recipes.prefix(6))) { recipe in RecipeCard(recipe: recipe) }
-                    }
-                }.padding()
-            }.navigationTitle("Receitas Airfryer")
+            Group {
+                switch store.catalogState {
+                case .failed(let message): CatalogUnavailableView(title: "Catálogo indisponível", message: message, systemImage: "exclamationmark.triangle")
+                case .empty: CatalogUnavailableView(title: "Nenhuma receita", message: "O catálogo está vazio.", systemImage: "book.closed")
+                case .loaded: homeContent
+                }
+            }
+            .navigationTitle("Receitas Airfryer")
+        }
+    }
+
+    private var homeContent: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                RecipeBundleImage(name: "start_receitas_vovo")
+                    .frame(height: 220)
+                    .clipShape(RoundedRectangle(cornerRadius: 24))
+                    .accessibilityLabel("Receitas caseiras preparadas na Airfryer")
+                Text("Cozinhe algo gostoso hoje").font(.largeTitle.bold())
+                Text("Receitas práticas para sua Airfryer, sem complicação.").foregroundStyle(.secondary)
+                Text("Escolha uma receita").font(.title2.bold())
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 155, maximum: 280), spacing: 16)], spacing: 16) {
+                    ForEach(Array(store.repository.payload.recipes.prefix(6))) { recipe in RecipeCard(recipe: recipe) }
+                }
+            }
+            .frame(maxWidth: 1_000, alignment: .leading)
+            .padding()
+            .frame(maxWidth: .infinity)
         }
     }
 }
@@ -35,16 +52,43 @@ struct DiscoverView: View {
     @EnvironmentObject private var store: RecipeStore
     @State private var query = ""; @State private var quick = false; @State private var healthy = false
     var body: some View {
-        NavigationStack { List {
-            Section { TextField("Buscar receita ou ingrediente", text: $query).textInputAutocapitalization(.never); Toggle("Até 15 minutos", isOn: $quick); Toggle("Opções mais leves", isOn: $healthy) }
-            ForEach(store.repository.search(query, quickOnly: quick, healthyOnly: healthy)) { recipe in NavigationLink(destination: RecipeDetailView(recipe: recipe)) { RecipeRow(recipe: recipe) } }
-        }.navigationTitle("Descobrir") }
+        NavigationStack {
+            Group {
+                if case .failed(let message) = store.catalogState {
+                    CatalogUnavailableView(title: "Catálogo indisponível", message: message, systemImage: "exclamationmark.triangle")
+                } else {
+                    List {
+                        Section { TextField("Buscar receita ou ingrediente", text: $query).textInputAutocapitalization(.never); Toggle("Até 15 minutos", isOn: $quick); Toggle("Opções mais leves", isOn: $healthy) }
+                        let results = store.repository.search(query, quickOnly: quick, healthyOnly: healthy)
+                        if results.isEmpty {
+                            ContentUnavailableView("Nenhum resultado", systemImage: "magnifyingglass", description: Text("Tente outros termos ou remova um filtro."))
+                                .listRowBackground(Color.clear)
+                        } else {
+                            ForEach(results) { recipe in NavigationLink(destination: RecipeDetailView(recipe: recipe)) { RecipeRow(recipe: recipe) } }
+                        }
+                    }
+                }
+            }.navigationTitle("Descobrir")
+        }
     }
 }
 
 struct FavoritesView: View {
     @EnvironmentObject private var store: RecipeStore
-    var body: some View { NavigationStack { List(store.repository.payload.recipes.filter { store.isFavorite($0) }) { recipe in NavigationLink(recipe.name, destination: RecipeDetailView(recipe: recipe)) } .navigationTitle("Favoritos") } }
+    var body: some View {
+        NavigationStack {
+            let favorites = store.repository.payload.recipes.filter { store.isFavorite($0) }
+            Group {
+                if case .failed(let message) = store.catalogState {
+                    CatalogUnavailableView(title: "Catálogo indisponível", message: message, systemImage: "exclamationmark.triangle")
+                } else if favorites.isEmpty {
+                    ContentUnavailableView("Sem favoritos", systemImage: "heart", description: Text("Toque no coração de uma receita para encontrá-la aqui."))
+                } else {
+                    List(favorites) { recipe in NavigationLink(destination: RecipeDetailView(recipe: recipe)) { RecipeRow(recipe: recipe) } }
+                }
+            }.navigationTitle("Favoritos")
+        }
+    }
 }
 
 struct ProfileView: View {
@@ -52,6 +96,40 @@ struct ProfileView: View {
     var body: some View { NavigationStack { Form { Section("Sua cozinha") { Label("Receitas disponíveis", systemImage: "book.fill"); Text("\(store.repository.payload.recipes.count) receitas offline") }; Section("Sobre") { Text("Receitas Airfryer"); Text("App Store ID: 6813681707").foregroundStyle(.secondary) } }.navigationTitle("Perfil") } }
 }
 
-struct RecipeCard: View { let recipe: Recipe; var body: some View { NavigationLink(destination: RecipeDetailView(recipe: recipe)) { VStack(alignment: .leading) { RecipeImage(recipe: recipe).frame(height: 110); Text(recipe.name).font(.headline); Text("\(recipe.minutes) min • \(recipe.temperature)°C").font(.caption).foregroundStyle(.secondary) } }.buttonStyle(.plain) } }
-struct RecipeRow: View { let recipe: Recipe; var body: some View { HStack { RecipeImage(recipe: recipe).frame(width: 64, height: 64); VStack(alignment: .leading) { Text(recipe.name).font(.headline); Text("\(recipe.category) • \(recipe.minutes) min").font(.caption).foregroundStyle(.secondary) } } } }
-struct RecipeImage: View { let recipe: Recipe; var body: some View { Group { if let imageName = recipe.imageName, UIImage(named: imageName) != nil { Image(imageName).resizable().scaledToFill() } else { LinearGradient(colors: [.orange.opacity(0.8), .yellow.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing).overlay(Image(systemName: "fork.knife").font(.largeTitle).foregroundStyle(.white)) } }.clipShape(RoundedRectangle(cornerRadius: 14)) } }
+struct RecipeCard: View { let recipe: Recipe; var body: some View { NavigationLink(destination: RecipeDetailView(recipe: recipe)) { VStack(alignment: .leading, spacing: 8) { RecipeImage(recipe: recipe).frame(height: 130); Text(recipe.name).font(.headline); Text("\(recipe.minutes) min • \(recipe.temperature)°C").font(.subheadline).foregroundStyle(.secondary) } }.buttonStyle(.plain).accessibilityLabel("\(recipe.name), \(recipe.minutes) minutos, \(recipe.temperature) graus") } }
+struct RecipeRow: View { let recipe: Recipe; var body: some View { HStack { RecipeImage(recipe: recipe).frame(width: 72, height: 72); VStack(alignment: .leading) { Text(recipe.name).font(.headline); Text("\(recipe.category) • \(recipe.minutes) min").font(.subheadline).foregroundStyle(.secondary) } }.accessibilityElement(children: .combine) } }
+
+struct RecipeBundleImage: View {
+    let name: String
+    var body: some View {
+        Group {
+            if let image = Self.load(name: name) { Image(uiImage: image).resizable().scaledToFill() }
+            else { LinearGradient(colors: [.orange.opacity(0.8), .yellow.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing).overlay(Image(systemName: "fork.knife").font(.largeTitle).foregroundStyle(.white)) }
+        }
+    }
+    static func load(name: String, bundle: Bundle = .main) -> UIImage? {
+        if let image = UIImage(named: name, in: bundle, compatibleWith: nil) { return image }
+        for fileExtension in ["png", "jpg", "jpeg"] {
+            let url = bundle.url(forResource: name, withExtension: fileExtension, subdirectory: "Images")
+                ?? bundle.url(forResource: name, withExtension: fileExtension)
+            if let url, let image = UIImage(contentsOfFile: url.path) { return image }
+        }
+        return nil
+    }
+}
+
+struct RecipeImage: View {
+    let recipe: Recipe
+    var body: some View {
+        RecipeBundleImage(name: recipe.imageName ?? "")
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .accessibilityLabel("Foto de \(recipe.name)")
+    }
+}
+
+struct CatalogUnavailableView: View {
+    let title: String
+    let message: String
+    let systemImage: String
+    var body: some View { ContentUnavailableView(title, systemImage: systemImage, description: Text(message)) }
+}

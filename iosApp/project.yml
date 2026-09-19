@@ -5,7 +5,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: 5.0
-    TARGETED_DEVICE_FAMILY: "1"
+    TARGETED_DEVICE_FAMILY: "1,2"
     PRODUCT_BUNDLE_IDENTIFIER: br.com.receitasairfyer
     PRODUCT_NAME: "Receitas Airfryer"
     APP_STORE_ID: "6813681707"
@@ -22,6 +22,9 @@ targets:
         type: folder
         buildPhase: resources
       - path: Resources/Recipes
+        type: folder
+        buildPhase: resources
+      - path: Resources/Images
         type: folder
         buildPhase: resources
       - path: Resources/PrivacyInfo.xcprivacy
@@ -50,4 +53,5 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: br.com.receitasairfyer.tests
         TEST_HOST: $(BUILT_PRODUCTS_DIR)/Receitas\ Airfryer.app/Receitas\ Airfryer
+        BUNDLE_LOADER: $(TEST_HOST)
         GENERATE_INFOPLIST_FILE: YES
