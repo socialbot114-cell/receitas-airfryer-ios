@@ -18,7 +18,7 @@ jobs:
         run: python3 iosApp/Scripts/validate_ios.py
 
   build:
-    runs-on: macos-14
+    runs-on: macos-26
     needs: validate
     steps:
       - uses: actions/checkout@v4
