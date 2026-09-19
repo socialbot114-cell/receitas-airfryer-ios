@@ -9,6 +9,13 @@ permissions:
 jobs:
   screenshots:
     runs-on: macos-26
+    strategy:
+      matrix:
+        device:
+          - name: iPhone 17
+            slug: iphone
+          - name: iPad Pro 13-inch (M4)
+            slug: ipad
     steps:
       - uses: actions/checkout@v4
       - name: Install XcodeGen
@@ -23,15 +30,15 @@ jobs:
           xcodebuild test \
             -project ReceitasAirfryer.xcodeproj \
             -scheme ReceitasAirfryer \
-            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.5' \
-            -resultBundlePath "$RUNNER_TEMP/airfryer.xcresult" \
+            -destination 'platform=iOS Simulator,name=${{ matrix.device.name }},OS=26.5' \
+            -resultBundlePath "$RUNNER_TEMP/airfryer-${{ matrix.device.slug }}.xcresult" \
             -only-testing:ReceitasAirfryerUITests \
             CODE_SIGNING_ALLOWED=NO
           mkdir -p "$RUNNER_TEMP/airfryer-screenshots"
           xcrun xcresulttool export attachments \
-            --path "$RUNNER_TEMP/airfryer.xcresult" \
-            --output-path "$RUNNER_TEMP/airfryer-screenshots"
+            --path "$RUNNER_TEMP/airfryer-${{ matrix.device.slug }}.xcresult" \
+            --output-path "$RUNNER_TEMP/airfryer-screenshots-${{ matrix.device.slug }}"
       - uses: actions/upload-artifact@v4
         with:
-          name: airfryer-ios-screenshots
-          path: ${{ runner.temp }}/airfryer-screenshots
+          name: airfryer-ios-screenshots-${{ matrix.device.slug }}
+          path: ${{ runner.temp }}/airfryer-screenshots-${{ matrix.device.slug }}
