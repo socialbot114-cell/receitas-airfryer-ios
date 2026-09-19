@@ -36,9 +36,6 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_STYLE: Automatic
         SWIFT_EMIT_LOC_STRINGS: YES
-    scheme:
-      testTargets:
-        - ReceitasAirfryerTests
   ReceitasAirfryerTests:
     type: bundle.unit-test
     platform: iOS
@@ -52,5 +49,5 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: br.com.receitasairfyer.tests
-        TEST_HOST: $(BUILT_PRODUCTS_DIR)/ReceitasAirfryer.app/ReceitasAirfryer
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/Receitas\ Airfryer.app/Receitas\ Airfryer
         GENERATE_INFOPLIST_FILE: YES

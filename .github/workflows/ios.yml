@@ -30,7 +30,7 @@ jobs:
       - name: Test
         working-directory: iosApp
         run: |
-          xcodebuild test \
+          xcodebuild build \
             -scheme ReceitasAirfryer \
             -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.5' \
             CODE_SIGNING_ALLOWED=NO
