@@ -11,6 +11,10 @@ final class ReceitasAirfryerScreenshotTests: XCTestCase {
 
         let recipe = app.buttons["Batata crocante, 22 minutos, 200 graus"]
         XCTAssertTrue(recipe.waitForExistence(timeout: 5))
+        for _ in 0..<4 where !recipe.isHittable {
+            app.scrollViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(recipe.isHittable)
         recipe.tap()
         XCTAssertTrue(app.staticTexts["Batata crocante"].waitForExistence(timeout: 5))
         capture(app, named: "receitas-airfryer-recipe")
