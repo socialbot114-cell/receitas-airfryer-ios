@@ -68,7 +68,12 @@ struct CookingModeView: View {
             Text(recipe.steps[step].instruction).font(.title2).multilineTextAlignment(.center)
             if timer.duration > 0 {
                 Text(formattedTime)
-                    .font(.largeTitle.bold().monospacedDigit())
+                    .font(.system(size: 72, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+                    .frame(maxWidth: 480)
+                    .padding(.vertical, 32)
+                    .padding(.horizontal, 24)
+                    .background(RoundedRectangle(cornerRadius: 28, style: .continuous).fill(.orange.opacity(0.12)))
                     .accessibilityLabel("Tempo restante")
                     .accessibilityValue("\(timer.remainingSeconds / 60) minutos e \(timer.remainingSeconds % 60) segundos")
                 HStack {
