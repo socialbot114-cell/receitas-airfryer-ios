@@ -1,0 +1,36 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate catalog and release metadata
+        run: python3 iosApp/Scripts/validate_ios.py
+
+  build:
+    runs-on: macos-14
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        working-directory: iosApp
+        run: xcodegen generate
+      - name: Test
+        working-directory: iosApp
+        run: |
+          xcodebuild test \
+            -scheme ReceitasAirfryer \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            CODE_SIGNING_ALLOWED=NO

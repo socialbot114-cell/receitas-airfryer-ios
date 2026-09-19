@@ -1,0 +1,1766 @@
+{
+  "recipes": [
+    {
+      "id": "batata-crocante",
+      "name": "Batata crocante",
+      "description": "Dourada por fora, macia no centro e temperada com páprica.",
+      "category": "Batatas",
+      "mainIngredient": "Batata",
+      "minutes": 22,
+      "temperature": 200,
+      "servings": 3,
+      "calories": 238,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "500 g de batata asterix",
+        "1 colher (sopa) de azeite",
+        "1 colher (chá) de páprica doce",
+        "1/2 colher (chá) de sal",
+        "Pimenta-do-reino a gosto"
+      ],
+      "pantryKeys": [
+        "batata",
+        "azeite",
+        "paprica"
+      ],
+      "steps": [
+        {
+          "instruction": "Corte as batatas em palitos de mesma espessura e lave até a água sair clara.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Seque muito bem, misture com azeite, páprica, sal e pimenta.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 200°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Distribua sem amontoar e asse a 200°C.",
+          "minutes": 10
+        },
+        {
+          "instruction": "Agite o cesto e asse novamente até dourar.",
+          "minutes": 9
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_batata_crocante",
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "frango-crocante",
+      "name": "Frango crocante",
+      "description": "Cubos suculentos com casquinha de parmesão e especiarias.",
+      "category": "Frango",
+      "mainIngredient": "Frango",
+      "minutes": 24,
+      "temperature": 190,
+      "servings": 4,
+      "calories": 356,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "600 g de peito de frango em cubos",
+        "2 colheres (sopa) de iogurte natural",
+        "3 colheres (sopa) de parmesão ralado",
+        "2 colheres (sopa) de farinha panko",
+        "1 dente de alho",
+        "Sal e páprica a gosto"
+      ],
+      "pantryKeys": [
+        "frango",
+        "iogurte",
+        "queijo",
+        "alho"
+      ],
+      "steps": [
+        {
+          "instruction": "Misture o frango com iogurte, alho, sal e páprica.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Empane levemente com parmesão e farinha panko.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 190°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Acomode os cubos sem sobrepor e asse.",
+          "minutes": 11
+        },
+        {
+          "instruction": "Vire os cubos e finalize até o centro chegar a 74°C.",
+          "minutes": 10
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_frango_crocante",
+      "dietaryTags": [],
+      "allergens": [
+        "LEITE",
+        "GLUTEN"
+      ]
+    },
+    {
+      "id": "salmao-ervas",
+      "name": "Salmão com ervas",
+      "description": "Filé úmido, cítrico e pronto para um jantar rápido.",
+      "category": "Peixes",
+      "mainIngredient": "Peixe",
+      "minutes": 14,
+      "temperature": 180,
+      "servings": 2,
+      "calories": 331,
+      "difficulty": "Fácil",
+      "preheat": false,
+      "turn": false,
+      "ingredients": [
+        "2 filés de salmão de 160 g",
+        "1 colher (chá) de azeite",
+        "Suco e raspas de 1/2 limão",
+        "1 colher (chá) de ervas secas",
+        "Sal e pimenta a gosto"
+      ],
+      "pantryKeys": [
+        "peixe",
+        "azeite",
+        "limao"
+      ],
+      "steps": [
+        {
+          "instruction": "Seque os filés e tempere com sal e pimenta.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Misture azeite, limão e ervas e espalhe sobre o peixe.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse com a pele voltada para baixo a 180°C.",
+          "minutes": 10
+        },
+        {
+          "instruction": "Confira se lasca facilmente e descanse antes de servir.",
+          "minutes": 2
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_salmao_ervas",
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "legumes-mediterraneos",
+      "name": "Legumes mediterrâneos",
+      "description": "Mix colorido com bordas tostadas e molho de limão.",
+      "category": "Vegetarianas",
+      "mainIngredient": "Legumes",
+      "minutes": 16,
+      "temperature": 190,
+      "servings": 3,
+      "calories": 142,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "1 abobrinha pequena",
+        "1/2 pimentão vermelho",
+        "1/2 cebola roxa",
+        "150 g de tomate-cereja",
+        "1 colher (sopa) de azeite",
+        "Orégano, sal e limão"
+      ],
+      "pantryKeys": [
+        "abobrinha",
+        "tomate",
+        "cebola",
+        "azeite"
+      ],
+      "steps": [
+        {
+          "instruction": "Corte os legumes em tamanhos semelhantes.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Misture com azeite, orégano e sal.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 190°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse os legumes espalhados no cesto.",
+          "minutes": 7
+        },
+        {
+          "instruction": "Mexa, junte os tomates e finalize. Tempere com limão.",
+          "minutes": 6
+        }
+      ],
+      "healthy": true,
+      "imageName": "asset_legumes_mediterraneos",
+      "dietaryTags": [
+        "VEGETARIANA"
+      ],
+      "allergens": []
+    },
+    {
+      "id": "pao-queijo",
+      "name": "Pão de queijo",
+      "description": "Casquinha firme e miolo elástico, direto do congelador.",
+      "category": "Lanches",
+      "mainIngredient": "Queijo",
+      "minutes": 12,
+      "temperature": 180,
+      "servings": 4,
+      "calories": 246,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "12 pães de queijo congelados (300 g)"
+      ],
+      "pantryKeys": [
+        "queijo"
+      ],
+      "steps": [
+        {
+          "instruction": "Preaqueça a Air Fryer a 180°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Disponha os pães de queijo congelados com espaço entre eles.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse até crescerem e ficarem dourados.",
+          "minutes": 9
+        },
+        {
+          "instruction": "Aguarde 2 minutos antes de servir.",
+          "minutes": 0
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_pao_queijo",
+      "dietaryTags": [],
+      "allergens": [
+        "LEITE"
+      ]
+    },
+    {
+      "id": "coxinha-asa",
+      "name": "Coxinha da asa dourada",
+      "description": "Frango bem temperado com pele sequinha e crocante.",
+      "category": "Frango",
+      "mainIngredient": "Frango",
+      "minutes": 28,
+      "temperature": 200,
+      "servings": 4,
+      "calories": 398,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "800 g de coxinha da asa",
+        "1 colher (sopa) de azeite",
+        "1 colher (chá) de páprica defumada",
+        "1 colher (chá) de alho em pó",
+        "Sal, pimenta e limão"
+      ],
+      "pantryKeys": [
+        "frango",
+        "azeite",
+        "limao",
+        "alho"
+      ],
+      "steps": [
+        {
+          "instruction": "Seque o frango e tempere com azeite, páprica, alho, sal e pimenta.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 200°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse em uma única camada.",
+          "minutes": 12
+        },
+        {
+          "instruction": "Vire cada pedaço e continue assando.",
+          "minutes": 11
+        },
+        {
+          "instruction": "Confirme 74°C junto ao osso e finalize com limão.",
+          "minutes": 2
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_coxinha_asa",
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "mandioca",
+      "name": "Mandioca dourada",
+      "description": "Pedaços cremosos por dentro, com crosta de alho e ervas.",
+      "category": "Acompanhamentos",
+      "mainIngredient": "Mandioca",
+      "minutes": 20,
+      "temperature": 200,
+      "servings": 4,
+      "calories": 284,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "600 g de mandioca cozida",
+        "1 colher (sopa) de azeite",
+        "1 dente de alho amassado",
+        "Alecrim e sal a gosto"
+      ],
+      "pantryKeys": [
+        "mandioca",
+        "azeite",
+        "alho"
+      ],
+      "steps": [
+        {
+          "instruction": "Cozinhe a mandioca até ficar macia, escorra e retire o fio central.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Corte, seque e envolva com azeite, alho e sal.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 200°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse sem sobrepor.",
+          "minutes": 8
+        },
+        {
+          "instruction": "Vire e finalize com alecrim.",
+          "minutes": 9
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_mandioca",
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "hamburguer-caseiro",
+      "name": "Hambúrguer caseiro",
+      "description": "Carne selada, suculenta e com queijo derretido.",
+      "category": "Carnes",
+      "mainIngredient": "Carne",
+      "minutes": 15,
+      "temperature": 200,
+      "servings": 2,
+      "calories": 412,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "360 g de carne moída com 20% de gordura",
+        "2 fatias de queijo",
+        "Sal e pimenta-do-reino",
+        "2 pães de hambúrguer"
+      ],
+      "pantryKeys": [
+        "carne",
+        "queijo",
+        "pao"
+      ],
+      "steps": [
+        {
+          "instruction": "Modele dois discos sem compactar demais e tempere por fora.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 200°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse os hambúrgueres por 5 minutos.",
+          "minutes": 5
+        },
+        {
+          "instruction": "Vire, cubra com queijo e asse até o ponto desejado.",
+          "minutes": 5
+        },
+        {
+          "instruction": "Descanse por 2 minutos e monte nos pães.",
+          "minutes": 2
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_hamburguer_caseiro",
+      "dietaryTags": [],
+      "allergens": [
+        "LEITE"
+      ]
+    },
+    {
+      "id": "brocolis-alho",
+      "name": "Brócolis tostado",
+      "description": "Floretes crocantes com alho, limão e parmesão.",
+      "category": "Vegetarianas",
+      "mainIngredient": "Brócolis",
+      "minutes": 12,
+      "temperature": 190,
+      "servings": 3,
+      "calories": 118,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "350 g de brócolis em floretes",
+        "1 colher (sopa) de azeite",
+        "1 dente de alho ralado",
+        "2 colheres (sopa) de parmesão",
+        "Sal e limão"
+      ],
+      "pantryKeys": [
+        "brocolis",
+        "azeite",
+        "alho",
+        "queijo"
+      ],
+      "steps": [
+        {
+          "instruction": "Lave e seque completamente os floretes.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Misture com azeite, alho e sal.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 190°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse e agite na metade do tempo.",
+          "minutes": 7
+        },
+        {
+          "instruction": "Finalize com parmesão e limão.",
+          "minutes": 2
+        }
+      ],
+      "healthy": true,
+      "imageName": "asset_brocolis_alho",
+      "dietaryTags": [
+        "VEGETARIANA"
+      ],
+      "allergens": [
+        "LEITE"
+      ]
+    },
+    {
+      "id": "banana-canela",
+      "name": "Banana assada com canela",
+      "description": "Sobremesa quente, caramelizada e sem açúcar refinado.",
+      "category": "Doces",
+      "mainIngredient": "Banana",
+      "minutes": 10,
+      "temperature": 180,
+      "servings": 2,
+      "calories": 167,
+      "difficulty": "Fácil",
+      "preheat": false,
+      "turn": false,
+      "ingredients": [
+        "2 bananas maduras",
+        "1/2 colher (chá) de canela",
+        "1 colher (chá) de mel",
+        "2 colheres (sopa) de aveia"
+      ],
+      "pantryKeys": [
+        "banana",
+        "aveia"
+      ],
+      "steps": [
+        {
+          "instruction": "Corte as bananas ao meio no sentido do comprimento.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Polvilhe canela e aveia e regue com mel.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse sobre papel próprio perfurado a 180°C.",
+          "minutes": 8
+        },
+        {
+          "instruction": "Sirva quente após descansar por 1 minuto.",
+          "minutes": 0
+        }
+      ],
+      "healthy": true,
+      "imageName": "asset_banana_canela",
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "GLUTEN"
+      ]
+    },
+    {
+      "id": "tilapia-limao",
+      "name": "Tilápia ao limão",
+      "description": "Filé leve com cobertura delicada de ervas e alho.",
+      "category": "Peixes",
+      "mainIngredient": "Peixe",
+      "minutes": 13,
+      "temperature": 190,
+      "servings": 2,
+      "calories": 221,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "2 filés de tilápia (320 g)",
+        "1 colher (chá) de azeite",
+        "1/2 limão",
+        "1 dente de alho",
+        "Salsinha, sal e pimenta"
+      ],
+      "pantryKeys": [
+        "peixe",
+        "limao",
+        "alho",
+        "azeite"
+      ],
+      "steps": [
+        {
+          "instruction": "Seque a tilápia e tempere com sal, pimenta, alho e limão.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 190°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Pincele azeite e asse os filés sem sobrepor.",
+          "minutes": 8
+        },
+        {
+          "instruction": "Verifique se o peixe está opaco e finalize com salsinha.",
+          "minutes": 2
+        }
+      ],
+      "healthy": true,
+      "imageName": null,
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "bife-acebolado",
+      "name": "Bife acebolado",
+      "description": "Contrafilé dourado com cebola macia e saborosa.",
+      "category": "Carnes",
+      "mainIngredient": "Carne",
+      "minutes": 16,
+      "temperature": 200,
+      "servings": 2,
+      "calories": 387,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "2 bifes de contrafilé (180 g cada)",
+        "1 cebola em pétalas",
+        "1 colher (chá) de azeite",
+        "Sal, pimenta e molho inglês"
+      ],
+      "pantryKeys": [
+        "carne",
+        "cebola",
+        "azeite"
+      ],
+      "steps": [
+        {
+          "instruction": "Retire os bifes da geladeira 15 minutos antes e seque.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Tempere a carne e misture a cebola com azeite.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 200°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse bifes e cebola por 6 minutos.",
+          "minutes": 6
+        },
+        {
+          "instruction": "Vire e asse até o ponto desejado. Descanse a carne.",
+          "minutes": 7
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_bife_acebolado",
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "abobrinha-recheada",
+      "name": "Abobrinha recheada",
+      "description": "Barquinhas leves com carne, tomate e queijo gratinado.",
+      "category": "Fit",
+      "mainIngredient": "Abobrinha",
+      "minutes": 22,
+      "temperature": 180,
+      "servings": 2,
+      "calories": 294,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "2 abobrinhas pequenas",
+        "200 g de carne moída já refogada",
+        "1 tomate sem sementes",
+        "60 g de muçarela",
+        "Sal e orégano"
+      ],
+      "pantryKeys": [
+        "abobrinha",
+        "carne",
+        "tomate",
+        "queijo"
+      ],
+      "steps": [
+        {
+          "instruction": "Corte as abobrinhas ao meio e retire parte do miolo.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Misture carne, tomate, miolo picado, sal e orégano.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 180°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse as barquinhas recheadas.",
+          "minutes": 12
+        },
+        {
+          "instruction": "Cubra com queijo e gratine.",
+          "minutes": 5
+        }
+      ],
+      "healthy": true,
+      "imageName": null,
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "omelete",
+      "name": "Omelete de forno",
+      "description": "Ovos fofos com tomate, queijo e ervas em porção individual.",
+      "category": "Café da manhã",
+      "mainIngredient": "Ovo",
+      "minutes": 12,
+      "temperature": 170,
+      "servings": 1,
+      "calories": 276,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "2 ovos",
+        "2 colheres (sopa) de leite",
+        "1/2 tomate picado",
+        "30 g de queijo",
+        "Cebolinha, sal e pimenta"
+      ],
+      "pantryKeys": [
+        "ovo",
+        "leite",
+        "tomate",
+        "queijo"
+      ],
+      "steps": [
+        {
+          "instruction": "Bata ovos, leite, sal e pimenta apenas até misturar.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Junte tomate, queijo e cebolinha em uma forma untada.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 170°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse até as bordas firmarem e o centro ficar úmido.",
+          "minutes": 9
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_omelete",
+      "dietaryTags": [],
+      "allergens": [
+        "LEITE",
+        "OVO"
+      ]
+    },
+    {
+      "id": "couve-flor",
+      "name": "Couve-flor com curry",
+      "description": "Floretes aromáticos, tostados e levemente picantes.",
+      "category": "Vegetarianas",
+      "mainIngredient": "Couve-flor",
+      "minutes": 15,
+      "temperature": 190,
+      "servings": 3,
+      "calories": 126,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "400 g de couve-flor",
+        "1 colher (sopa) de azeite",
+        "1 colher (chá) de curry",
+        "1/2 colher (chá) de cúrcuma",
+        "Sal e limão"
+      ],
+      "pantryKeys": [
+        "couve-flor",
+        "azeite",
+        "limao"
+      ],
+      "steps": [
+        {
+          "instruction": "Separe floretes pequenos, lave e seque bem.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Misture com azeite, curry, cúrcuma e sal.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 190°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse por 6 minutos.",
+          "minutes": 6
+        },
+        {
+          "instruction": "Agite o cesto e finalize. Sirva com limão.",
+          "minutes": 6
+        }
+      ],
+      "healthy": true,
+      "imageName": "asset_couve_flor",
+      "dietaryTags": [
+        "VEGETARIANA"
+      ],
+      "allergens": []
+    },
+    {
+      "id": "linguica-cebola",
+      "name": "Linguiça com cebola",
+      "description": "Gomos dourados com cebola adocicada, sem sujeira no fogão.",
+      "category": "Carnes",
+      "mainIngredient": "Linguiça",
+      "minutes": 20,
+      "temperature": 200,
+      "servings": 4,
+      "calories": 468,
+      "difficulty": "Intermediário",
+      "preheat": false,
+      "turn": true,
+      "ingredients": [
+        "600 g de linguiça toscana",
+        "2 cebolas em pétalas",
+        "1 colher (chá) de mostarda",
+        "Pimenta-do-reino a gosto"
+      ],
+      "pantryKeys": [
+        "linguica",
+        "cebola"
+      ],
+      "steps": [
+        {
+          "instruction": "Faça pequenos furos apenas na película e acomode os gomos.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 200°C por 8 minutos.",
+          "minutes": 8
+        },
+        {
+          "instruction": "Vire, adicione cebola misturada com mostarda e pimenta.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse até dourar e atingir 71°C no centro.",
+          "minutes": 10
+        },
+        {
+          "instruction": "Descanse 2 minutos antes de cortar.",
+          "minutes": 2
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_linguica_cebola",
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "quibe",
+      "name": "Quibe assado",
+      "description": "Quibe úmido com hortelã e superfície bem tostada.",
+      "category": "Lanches",
+      "mainIngredient": "Carne",
+      "minutes": 20,
+      "temperature": 190,
+      "servings": 4,
+      "calories": 318,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "300 g de carne moída",
+        "150 g de trigo para quibe hidratado",
+        "1/2 cebola ralada",
+        "2 colheres (sopa) de hortelã",
+        "Sal, pimenta síria e azeite"
+      ],
+      "pantryKeys": [
+        "carne",
+        "cebola",
+        "trigo"
+      ],
+      "steps": [
+        {
+          "instruction": "Esprema bem o trigo hidratado.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Misture carne, trigo, cebola, hortelã e temperos.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Modele quibes pequenos e pincele azeite.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 190°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse, vire na metade e confirme 71°C no centro.",
+          "minutes": 15
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_quibe",
+      "dietaryTags": [],
+      "allergens": [
+        "GLUTEN"
+      ]
+    },
+    {
+      "id": "torrada-caprese",
+      "name": "Torrada caprese",
+      "description": "Pão crocante, tomate suculento e queijo derretido.",
+      "category": "Lanches",
+      "mainIngredient": "Pão",
+      "minutes": 8,
+      "temperature": 180,
+      "servings": 2,
+      "calories": 263,
+      "difficulty": "Fácil",
+      "preheat": false,
+      "turn": false,
+      "ingredients": [
+        "4 fatias de pão italiano",
+        "1 tomate fatiado",
+        "100 g de muçarela",
+        "Folhas de manjericão",
+        "Azeite, sal e pimenta"
+      ],
+      "pantryKeys": [
+        "pao",
+        "tomate",
+        "queijo",
+        "azeite"
+      ],
+      "steps": [
+        {
+          "instruction": "Regue o pão com um fio de azeite.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Cubra com tomate temperado e muçarela.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 180°C até o queijo derreter e a base dourar.",
+          "minutes": 6
+        },
+        {
+          "instruction": "Finalize com manjericão e pimenta.",
+          "minutes": 0
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "maca-crumble",
+      "name": "Maçã com crumble",
+      "description": "Maçã macia sob uma farofa crocante de aveia e canela.",
+      "category": "Doces",
+      "mainIngredient": "Maçã",
+      "minutes": 18,
+      "temperature": 180,
+      "servings": 2,
+      "calories": 219,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "2 maçãs",
+        "3 colheres (sopa) de aveia",
+        "1 colher (sopa) de manteiga",
+        "1 colher (sopa) de açúcar mascavo",
+        "Canela a gosto"
+      ],
+      "pantryKeys": [
+        "maca",
+        "aveia",
+        "manteiga"
+      ],
+      "steps": [
+        {
+          "instruction": "Pique as maçãs e distribua em dois ramequins.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Misture aveia, manteiga, açúcar e canela formando uma farofa.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Cubra as maçãs e preaqueça a Air Fryer a 180°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse até borbulhar e dourar.",
+          "minutes": 15
+        }
+      ],
+      "healthy": false,
+      "imageName": "asset_maca_crumble",
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "LEITE",
+        "GLUTEN"
+      ]
+    },
+    {
+      "id": "grao-bico",
+      "name": "Grão-de-bico crocante",
+      "description": "Petisco rico em fibras, seco e intensamente temperado.",
+      "category": "Fit",
+      "mainIngredient": "Grão-de-bico",
+      "minutes": 18,
+      "temperature": 200,
+      "servings": 4,
+      "calories": 184,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "400 g de grão-de-bico cozido e escorrido",
+        "1 colher (chá) de azeite",
+        "1 colher (chá) de páprica",
+        "1/2 colher (chá) de cominho",
+        "Sal a gosto"
+      ],
+      "pantryKeys": [
+        "grao-de-bico",
+        "azeite",
+        "paprica"
+      ],
+      "steps": [
+        {
+          "instruction": "Escorra, lave e seque muito bem o grão-de-bico.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Misture com azeite, páprica, cominho e sal.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 200°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse em camada uniforme e agite a cada 5 minutos.",
+          "minutes": 15
+        },
+        {
+          "instruction": "Espere esfriar para ficar ainda mais crocante.",
+          "minutes": 0
+        }
+      ],
+      "healthy": true,
+      "imageName": null,
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "costelinha",
+      "name": "Costelinha barbecue",
+      "description": "Pedaços macios, laqueados e caramelizados no ponto.",
+      "category": "Carnes",
+      "mainIngredient": "Carne",
+      "minutes": 32,
+      "temperature": 180,
+      "servings": 4,
+      "calories": 526,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "800 g de costelinha suína em ripas",
+        "3 colheres (sopa) de molho barbecue",
+        "1 colher (chá) de páprica",
+        "1 dente de alho",
+        "Sal e pimenta"
+      ],
+      "pantryKeys": [
+        "carne",
+        "alho"
+      ],
+      "steps": [
+        {
+          "instruction": "Tempere a costelinha com alho, páprica, sal e pimenta.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 180°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse as ripas sem sobrepor.",
+          "minutes": 13
+        },
+        {
+          "instruction": "Vire e asse por mais 10 minutos.",
+          "minutes": 10
+        },
+        {
+          "instruction": "Pincele barbecue dos dois lados e caramelize, sem deixar queimar.",
+          "minutes": 6
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [],
+      "allergens": []
+    },
+    {
+      "id": "empanado-berinjela",
+      "name": "Berinjela empanada",
+      "description": "Rodelas sequinhas com parmesão, ótimas como entrada.",
+      "category": "Vegetarianas",
+      "mainIngredient": "Berinjela",
+      "minutes": 17,
+      "temperature": 190,
+      "servings": 3,
+      "calories": 198,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": true,
+      "ingredients": [
+        "1 berinjela grande",
+        "1 ovo",
+        "4 colheres (sopa) de farinha panko",
+        "3 colheres (sopa) de parmesão",
+        "Sal, pimenta e azeite em spray"
+      ],
+      "pantryKeys": [
+        "berinjela",
+        "ovo",
+        "queijo"
+      ],
+      "steps": [
+        {
+          "instruction": "Corte a berinjela em rodelas, salgue e seque após 10 minutos.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Passe no ovo e depois na mistura de panko e parmesão.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 190°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Borrife azeite e asse por 6 minutos.",
+          "minutes": 6
+        },
+        {
+          "instruction": "Vire, borrife novamente e finalize.",
+          "minutes": 6
+        }
+      ],
+      "healthy": true,
+      "imageName": null,
+      "dietaryTags": [
+        "VEGETARIANA"
+      ],
+      "allergens": [
+        "LEITE",
+        "GLUTEN",
+        "OVO"
+      ]
+    },
+    {
+      "id": "brownie-cacau",
+      "name": "Brownie de cacau",
+      "description": "Quadradinhos úmidos por dentro e com casquinha delicada.",
+      "category": "Doces",
+      "mainIngredient": "Cacau",
+      "minutes": 18,
+      "temperature": 160,
+      "servings": 6,
+      "calories": 238,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "80 g de chocolate meio amargo picado",
+        "60 g de manteiga",
+        "1/2 xícara de açúcar",
+        "1 ovo",
+        "1/3 xícara de farinha de trigo",
+        "2 colheres (sopa) de cacau em pó",
+        "1 pitada de sal"
+      ],
+      "pantryKeys": [
+        "chocolate",
+        "manteiga",
+        "ovo"
+      ],
+      "steps": [
+        {
+          "instruction": "Forre uma forma pequena que caiba no cesto.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Derreta chocolate e manteiga, misture açúcar e ovo.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Incorpore farinha, cacau e sal sem bater demais.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Preaqueça a Air Fryer a 160°C.",
+          "minutes": 3
+        },
+        {
+          "instruction": "Asse até as bordas firmarem e o centro ainda estar úmido.",
+          "minutes": 15
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "LEITE",
+        "GLUTEN",
+        "OVO"
+      ]
+    },
+    {
+      "id": "cookie-aveia",
+      "name": "Cookie de aveia e gotas",
+      "description": "Cookie macio no centro, com bordas douradas.",
+      "category": "Doces",
+      "mainIngredient": "Aveia",
+      "minutes": 14,
+      "temperature": 170,
+      "servings": 8,
+      "calories": 156,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "1 xícara de aveia em flocos",
+        "1/2 xícara de farinha de trigo",
+        "1/3 xícara de açúcar mascavo",
+        "60 g de manteiga",
+        "1 ovo",
+        "1/3 xícara de gotas de chocolate",
+        "1/2 colher (chá) de fermento"
+      ],
+      "pantryKeys": [
+        "aveia",
+        "farinha",
+        "manteiga",
+        "ovo",
+        "chocolate"
+      ],
+      "steps": [
+        {
+          "instruction": "Misture manteiga, açúcar e ovo.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Junte aveia, farinha, fermento e gotas de chocolate.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Modele bolas e achate em papel próprio perfurado.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 170°C por 10 minutos, em lotes, até dourar as bordas.",
+          "minutes": 10
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "LEITE",
+        "GLUTEN",
+        "OVO"
+      ]
+    },
+    {
+      "id": "pudim-leite",
+      "name": "Pudim de leite condensado",
+      "description": "Pudim cremoso em ramequins, com calda dourada.",
+      "category": "Doces",
+      "mainIngredient": "Leite",
+      "minutes": 25,
+      "temperature": 160,
+      "servings": 4,
+      "calories": 286,
+      "difficulty": "Intermediário",
+      "preheat": false,
+      "turn": false,
+      "ingredients": [
+        "1/2 xícara de açúcar para a calda",
+        "1/2 lata de leite condensado",
+        "1/2 xícara de leite",
+        "2 ovos"
+      ],
+      "pantryKeys": [
+        "leite",
+        "ovo"
+      ],
+      "steps": [
+        {
+          "instruction": "Derreta o açúcar até formar caramelo e distribua em quatro ramequins.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Bata leite condensado, leite e ovos apenas até misturar.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Despeje nos ramequins e cubra com papel-alumínio.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 160°C até firmar no centro.",
+          "minutes": 20
+        },
+        {
+          "instruction": "Esfrie antes de desenformar.",
+          "minutes": 0
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "LEITE",
+        "OVO"
+      ]
+    },
+    {
+      "id": "pasteis-banana",
+      "name": "Pastelzinho de banana",
+      "description": "Massa fina e crocante com banana e canela.",
+      "category": "Doces",
+      "mainIngredient": "Banana",
+      "minutes": 12,
+      "temperature": 180,
+      "servings": 6,
+      "calories": 142,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "6 discos de massa para pastel",
+        "2 bananas maduras em rodelas",
+        "1 colher (sopa) de açúcar",
+        "1/2 colher (chá) de canela",
+        "Água para fechar"
+      ],
+      "pantryKeys": [
+        "banana",
+        "canela"
+      ],
+      "steps": [
+        {
+          "instruction": "Misture banana, açúcar e canela.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Recheie os discos, umedeça as bordas e pressione com garfo.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Pincele levemente com óleo.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 180°C, virando na metade, até dourar.",
+          "minutes": 10
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": []
+    },
+    {
+      "id": "cheesecake-goiabada",
+      "name": "Cheesecake de goiabada",
+      "description": "Mini cheesecake assado com cobertura brilhante de goiabada.",
+      "category": "Doces",
+      "mainIngredient": "Goiabada",
+      "minutes": 24,
+      "temperature": 160,
+      "servings": 4,
+      "calories": 302,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "100 g de biscoito maisena triturado",
+        "35 g de manteiga derretida",
+        "200 g de cream cheese",
+        "1 ovo",
+        "2 colheres (sopa) de açúcar",
+        "80 g de goiabada",
+        "2 colheres (sopa) de água"
+      ],
+      "pantryKeys": [
+        "biscoito",
+        "manteiga",
+        "queijo",
+        "ovo",
+        "goiabada"
+      ],
+      "steps": [
+        {
+          "instruction": "Misture biscoito e manteiga e pressione em quatro formas.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Bata cream cheese, açúcar e ovo até ficar homogêneo.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Distribua sobre a base.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 160°C até o centro firmar.",
+          "minutes": 18
+        },
+        {
+          "instruction": "Derreta goiabada com água e cubra após esfriar.",
+          "minutes": 0
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "LEITE",
+        "GLUTEN",
+        "OVO"
+      ]
+    },
+    {
+      "id": "coco-queimado",
+      "name": "Cocada de forno",
+      "description": "Cocada dourada nas bordas e cremosa no centro.",
+      "category": "Doces",
+      "mainIngredient": "Coco",
+      "minutes": 16,
+      "temperature": 170,
+      "servings": 6,
+      "calories": 196,
+      "difficulty": "Fácil",
+      "preheat": false,
+      "turn": false,
+      "ingredients": [
+        "2 xícaras de coco ralado sem açúcar",
+        "1/2 lata de leite condensado",
+        "1 ovo",
+        "1 colher (sopa) de manteiga",
+        "1 pitada de sal"
+      ],
+      "pantryKeys": [
+        "coco",
+        "leite",
+        "ovo",
+        "manteiga"
+      ],
+      "steps": [
+        {
+          "instruction": "Misture todos os ingredientes até formar uma massa úmida.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Distribua em forminhas untadas, sem compactar.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 170°C até dourar as pontas.",
+          "minutes": 13
+        },
+        {
+          "instruction": "Descanse 5 minutos antes de servir.",
+          "minutes": 0
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "LEITE",
+        "OVO"
+      ]
+    },
+    {
+      "id": "pera-mel-canela",
+      "name": "Pera assada com canela",
+      "description": "Pera macia, perfumada e finalizada com nozes crocantes.",
+      "category": "Doces",
+      "mainIngredient": "Pera",
+      "minutes": 15,
+      "temperature": 180,
+      "servings": 2,
+      "calories": 174,
+      "difficulty": "Fácil",
+      "preheat": false,
+      "turn": false,
+      "ingredients": [
+        "2 peras firmes",
+        "1 colher (sopa) de mel",
+        "1/2 colher (chá) de canela",
+        "2 colheres (sopa) de nozes picadas",
+        "1 colher (chá) de suco de limão"
+      ],
+      "pantryKeys": [
+        "pera",
+        "mel",
+        "canela",
+        "nozes"
+      ],
+      "steps": [
+        {
+          "instruction": "Corte as peras ao meio e retire as sementes.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Pincele limão, mel e canela.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse com o corte para cima a 180°C.",
+          "minutes": 11
+        },
+        {
+          "instruction": "Finalize com nozes e sirva morna.",
+          "minutes": 2
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES",
+        "SEM_LACTOSE",
+        "SEM_GLUTEN",
+        "VEGETARIANA"
+      ],
+      "allergens": [
+        "OLEAGINOSAS"
+      ]
+    },
+    {
+      "id": "churros-canela",
+      "name": "Churros de canela",
+      "description": "Palitos dourados para finalizar com açúcar e canela.",
+      "category": "Doces",
+      "mainIngredient": "Farinha",
+      "minutes": 20,
+      "temperature": 190,
+      "servings": 4,
+      "calories": 224,
+      "difficulty": "Intermediário",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "1 xícara de água",
+        "1 colher (sopa) de manteiga",
+        "1 colher (sopa) de açúcar",
+        "1 xícara de farinha de trigo",
+        "1 ovo",
+        "Açúcar e canela para finalizar"
+      ],
+      "pantryKeys": [
+        "farinha",
+        "manteiga",
+        "ovo"
+      ],
+      "steps": [
+        {
+          "instruction": "Ferva água, manteiga e açúcar; junte a farinha e mexa até soltar da panela.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Esfrie por 5 minutos e incorpore o ovo.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Modele tiras com saco de confeitar e pincele óleo.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 190°C, virando na metade, até dourar.",
+          "minutes": 16
+        },
+        {
+          "instruction": "Passe em açúcar e canela.",
+          "minutes": 0
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "LEITE",
+        "GLUTEN",
+        "OVO"
+      ]
+    },
+    {
+      "id": "muffin-maca",
+      "name": "Muffin de maçã",
+      "description": "Bolinho individual de maçã com canela e miolo macio.",
+      "category": "Doces",
+      "mainIngredient": "Maçã",
+      "minutes": 18,
+      "temperature": 170,
+      "servings": 6,
+      "calories": 205,
+      "difficulty": "Fácil",
+      "preheat": true,
+      "turn": false,
+      "ingredients": [
+        "1 maçã picada",
+        "1 ovo",
+        "1/3 xícara de óleo",
+        "1/2 xícara de açúcar",
+        "3/4 xícara de farinha de trigo",
+        "1/2 colher (chá) de canela",
+        "1/2 colher (chá) de fermento"
+      ],
+      "pantryKeys": [
+        "maca",
+        "ovo",
+        "farinha"
+      ],
+      "steps": [
+        {
+          "instruction": "Misture ovo, óleo e açúcar.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Junte farinha, canela e fermento; incorpore a maçã.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Divida em seis forminhas, preenchendo até dois terços.",
+          "minutes": 0
+        },
+        {
+          "instruction": "Asse a 170°C até dourar e o palito sair limpo.",
+          "minutes": 15
+        }
+      ],
+      "healthy": false,
+      "imageName": null,
+      "dietaryTags": [
+        "DOCES"
+      ],
+      "allergens": [
+        "GLUTEN",
+        "OVO"
+      ]
+    }
+  ],
+  "guide": [
+    {
+      "name": "Batata palito",
+      "cut": "Palitos de 1 cm",
+      "temperature": 200,
+      "time": "15–22 min",
+      "tip": "Lave, seque e agite duas vezes."
+    },
+    {
+      "name": "Batata congelada",
+      "cut": "Direto do freezer",
+      "temperature": 200,
+      "time": "12–18 min",
+      "tip": "Não descongele; evite encher o cesto."
+    },
+    {
+      "name": "Peito de frango",
+      "cut": "Cubos de 3 cm",
+      "temperature": 190,
+      "time": "16–22 min",
+      "tip": "Vire e confirme 74°C no centro."
+    },
+    {
+      "name": "Coxa de frango",
+      "cut": "Com osso",
+      "temperature": 200,
+      "time": "22–30 min",
+      "tip": "Comece com a pele para baixo e vire."
+    },
+    {
+      "name": "Bife bovino",
+      "cut": "2 cm de espessura",
+      "temperature": 200,
+      "time": "8–14 min",
+      "tip": "Vire uma vez e descanse antes de cortar."
+    },
+    {
+      "name": "Hambúrguer",
+      "cut": "Disco de 180 g",
+      "temperature": 200,
+      "time": "10–14 min",
+      "tip": "Não pressione durante o preparo."
+    },
+    {
+      "name": "Linguiça",
+      "cut": "Gomos inteiros",
+      "temperature": 200,
+      "time": "15–20 min",
+      "tip": "Vire na metade; centro a 71°C."
+    },
+    {
+      "name": "Salmão",
+      "cut": "Filé de 3 cm",
+      "temperature": 180,
+      "time": "8–12 min",
+      "tip": "Asse com a pele voltada para baixo."
+    },
+    {
+      "name": "Tilápia",
+      "cut": "Filé descongelado",
+      "temperature": 190,
+      "time": "8–11 min",
+      "tip": "Pincele azeite para não ressecar."
+    },
+    {
+      "name": "Brócolis",
+      "cut": "Floretes médios",
+      "temperature": 190,
+      "time": "7–10 min",
+      "tip": "Seque bem e agite na metade."
+    },
+    {
+      "name": "Couve-flor",
+      "cut": "Floretes médios",
+      "temperature": 190,
+      "time": "10–14 min",
+      "tip": "Deixe espaço para o ar circular."
+    },
+    {
+      "name": "Abobrinha",
+      "cut": "Meias-luas",
+      "temperature": 190,
+      "time": "8–12 min",
+      "tip": "Salgue somente antes de assar."
+    },
+    {
+      "name": "Pão de queijo",
+      "cut": "Congelado",
+      "temperature": 180,
+      "time": "8–12 min",
+      "tip": "Mantenha espaço para crescer."
+    },
+    {
+      "name": "Mandioca",
+      "cut": "Cozida em pedaços",
+      "temperature": 200,
+      "time": "14–20 min",
+      "tip": "Pincele azeite e vire na metade."
+    },
+    {
+      "name": "Legumes variados",
+      "cut": "Cubos de 2 cm",
+      "temperature": 190,
+      "time": "12–18 min",
+      "tip": "Coloque os mais firmes primeiro."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+<resources>
+    <style name="Theme.ReceitasAirfryer" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#F26A21</item>
+        <item name="android:navigationBarColor">@color/brand_cream</item>
+        <item name="android:statusBarColor">@color/brand_cream</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+    <style name="Theme.ReceitasAirfryer.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/brand_orange</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.ReceitasAirfryer</item>
+    </style>
+</resources>

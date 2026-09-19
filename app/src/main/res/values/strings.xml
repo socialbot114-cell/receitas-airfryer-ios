@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Receitas Airfryer</string>
+    <string name="home">Início</string>
+    <string name="discover">Descobrir</string>
+    <string name="guide">Guia</string>
+    <string name="favorites">Favoritos</string>
+    <string name="profile">Perfil</string>
+    <string name="search_recipes">Busque por receita ou ingrediente</string>
+    <string name="back">Voltar</string>
+</resources>

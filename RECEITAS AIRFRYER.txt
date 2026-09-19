@@ -1,0 +1,663 @@
+Crie uma imagem publicitária em ALTÍSSIMA QUALIDADE apresentando o storyboard completo, identidade visual e conceito de produto de um aplicativo Android nativo chamado:
+
+RECEITAS AIRFRYER
+
+CONCEITO DO PRODUTO
+
+Um aplicativo brasileiro moderno especializado exclusivamente em receitas para Air Fryer.
+
+O objetivo é ser o COMPANHEIRO DEFINITIVO DE QUEM TEM UMA AIR FRYER.
+
+Não criar apenas um catálogo comum de receitas.
+
+O aplicativo deve ajudar o usuário a responder rapidamente:
+
+• O que posso fazer hoje na Air Fryer?
+• O que consigo preparar com os ingredientes que tenho?
+• Quanto tempo essa receita leva?
+• Qual temperatura devo usar?
+• Preciso virar o alimento?
+• Preciso pré-aquecer?
+• Quantas calorias possui?
+• Qual receita consigo fazer em menos de 15 minutos?
+• O que posso fazer com frango, carne, batata ou legumes?
+• Como deixar determinado alimento crocante?
+• Quanto tempo cada alimento precisa na Air Fryer?
+
+DIFERENCIAL
+
+Transformar um simples aplicativo de receitas em um ASSISTENTE INTELIGENTE PARA AIR FRYER.
+
+A experiência deve ser extremamente rápida e prática.
+
+A pessoa abre o aplicativo, escolhe o que possui em casa e rapidamente encontra algo para preparar.
+
+IDENTIDADE VISUAL
+
+Nome:
+
+RECEITAS
+AIRFRYER
+
+Criar uma LOGO ORIGINAL e extremamente reconhecível.
+
+Conceito sugerido:
+
+combinar de maneira minimalista:
+
+Air Fryer
++
+calor
++
+comida
++
+check de receita pronta
+
+O símbolo pode explorar de maneira inteligente a silhueta frontal de uma Air Fryer com pequenas ondas de calor.
+
+Evitar logo complicada.
+
+O ícone precisa funcionar perfeitamente como:
+
+• ícone Android
+• Play Store
+• favicon
+• redes sociais
+• splash screen
+
+APP ICON
+
+Criar ícone premium.
+
+Formato:
+quadrado com cantos arredondados.
+
+Símbolo central simples.
+
+Alta legibilidade mesmo muito pequeno.
+
+Não colocar textos pequenos dentro do ícone.
+
+DIREÇÃO VISUAL
+
+Produto Android premium.
+
+Referências conceituais:
+
+Material Design 3
+apps modernos de culinária
+apps fitness premium
+apps de delivery
+interfaces editoriais de gastronomia
+
+NÃO copiar nenhuma interface existente.
+
+ESTÉTICA
+
+Clean.
+Clara.
+Quente.
+Apetitosa.
+Premium.
+Moderna.
+Extremamente organizada.
+
+A COMIDA DEVE SER A PROTAGONISTA.
+
+Usar fotografias gastronômicas hiper-realistas.
+
+Alimentos dourados.
+Texturas crocantes.
+Batatas douradas.
+Frango crocante.
+Carnes suculentas.
+Legumes assados.
+Queijo derretendo.
+
+Fotografia estilo publicidade gastronômica premium.
+
+PALETA
+
+Laranja quente:
+#F26A21
+
+Laranja claro:
+#FF9D45
+
+Amarelo dourado:
+#FFC857
+
+Carvão:
+#24211F
+
+Background:
+#FAF8F5
+
+Cards:
+#FFFFFF
+
+Texto:
+#24211F
+
+Texto secundário:
+#746E68
+
+Verde para indicadores positivos:
+#3F8C5A
+
+Não exagerar no laranja.
+
+Usar principalmente fundos claros e fotografias de comida.
+
+TIPOGRAFIA
+
+Sans-serif moderna semelhante a Google Sans / Inter.
+
+Números de:
+
+TEMPO
+TEMPERATURA
+CALORIAS
+
+devem possuir excelente destaque visual.
+
+STORYBOARD
+
+Apresentar aproximadamente 8 smartphones Android premium.
+
+Cada smartphone deve mostrar uma etapa importante da experiência.
+
+TELA 01 — SPLASH
+
+Logo:
+
+RECEITAS AIRFRYER
+
+Símbolo central.
+
+Slogan:
+
+"Mais sabor. Menos complicação."
+
+Fundo minimalista.
+
+TELA 02 — HOME
+
+Header:
+
+"Olá! 👋
+O que vamos preparar?"
+
+Grande campo de pesquisa:
+
+"Busque uma receita ou ingrediente"
+
+Abaixo:
+
+O que você tem em casa?
+
+Cards rápidos:
+
+🥔 Batata
+🍗 Frango
+🥩 Carne
+🐟 Peixe
+🥦 Legumes
+🧀 Queijo
+
+Criar seção:
+
+🔥 MAIS FEITAS HOJE
+
+Grande fotografia de:
+
+BATATA CROCANTE
+
+15 min
+200°C
+320 kcal
+
+Outro card:
+
+FRANGO CROCANTE
+
+25 min
+190°C
+
+Adicionar seção:
+
+"Pronto em até 15 minutos"
+
+TELA 03 — EXPLORAR RECEITAS
+
+Título:
+
+"Descobrir"
+
+Grande grid visual de categorias.
+
+CAFÉ DA MANHÃ
+
+ALMOÇO
+
+JANTAR
+
+LANCHES
+
+FIT
+
+DOCES
+
+FRANGO
+
+CARNES
+
+BATATAS
+
+LEGUMES
+
+SOBREMESAS
+
+Cada categoria deve utilizar fotografia gastronômica extremamente apetitosa.
+
+Adicionar filtros:
+
+Até 15 min
+Até 30 min
+Fácil
+Saudável
+Poucos ingredientes
+
+TELA 04 — DETALHE DA RECEITA
+
+Esta deve ser uma das telas visualmente mais bonitas.
+
+Grande fotografia:
+
+FRANGO CROCANTE NA AIR FRYER
+
+Mostrar imediatamente:
+
+25 MIN
+190°C
+420 KCAL
+FÁCIL
+
+Avaliação:
+
+⭐ 4,9
+
+Botão principal:
+
+"COMEÇAR RECEITA"
+
+Adicionar:
+
+Ingredientes
+
+500g de frango
+1 colher de azeite
+páprica
+alho
+sal
+
+Abaixo:
+
+Modo de preparo
+
+Mas manter a tela extremamente limpa.
+
+TELA 05 — MODO COZINHAR
+
+Criar uma interface específica para ser utilizada enquanto a pessoa cozinha.
+
+Título:
+
+Frango Crocante
+
+PASSO 2 DE 5
+
+Texto grande:
+
+"Coloque o frango no cesto sem sobrepor os pedaços."
+
+Grande indicação:
+
+190°C
+
+Timer:
+
+12:00
+
+Botão:
+
+INICIAR TIMER
+
+Mostrar instrução:
+
+"Vire o frango quando o timer terminar."
+
+Botões grandes.
+
+Interface legível à distância.
+
+Poucos elementos.
+
+Esta tela deve transmitir que o aplicativo realmente acompanha o preparo.
+
+TELA 06 — TIMER INTELIGENTE
+
+Tela extremamente visual.
+
+Grande círculo de progresso.
+
+08:42
+
+RESTANDO
+
+190°C
+
+Texto:
+
+"Seu frango está quase pronto."
+
+Próxima etapa:
+
+"Vire os pedaços e asse por mais 8 minutos."
+
+Botões:
+
+PAUSAR
+
++ 1 MIN
+
+Finalizar
+
+Criar sensação de companion app para Air Fryer.
+
+TELA 07 — TENHO ISSO EM CASA
+
+Título:
+
+"O que tem na sua cozinha?"
+
+Mostrar seleção visual de ingredientes:
+
+✓ Frango
+✓ Batata
+✓ Queijo
+✓ Ovo
+Tomate
+Cebola
+Arroz
+Bacon
+Brócolis
+
+Grande CTA:
+
+"ENCONTRAR RECEITAS"
+
+Resultado:
+
+"Encontramos 18 receitas para você."
+
+Mostrar:
+
+BATATA RECHEADA
+
+Você já possui:
+4 de 5 ingredientes
+
+FRANGO COM QUEIJO
+
+Você já possui:
+todos os ingredientes
+
+Essa funcionalidade deve parecer extremamente útil.
+
+TELA 08 — GUIA AIR FRYER
+
+Título:
+
+"Quanto tempo?"
+
+Criar uma ferramenta rápida.
+
+Pesquisar:
+
+"Batata"
+
+Resultado:
+
+BATATA PALITO
+
+200°C
+15–20 MIN
+
+Agite na metade do tempo.
+
+Outros exemplos:
+
+Pão de queijo
+180°C
+10 min
+
+Frango
+190°C
+20–25 min
+
+Linguiça
+200°C
+15 min
+
+Legumes
+180°C
+12–15 min
+
+Criar aparência de uma CALCULADORA DE TEMPO DA AIR FRYER.
+
+Essa funcionalidade deve ser um grande diferencial do aplicativo.
+
+NAVEGAÇÃO
+
+Bottom navigation Material 3:
+
+Início
+Descobrir
+Cozinhar
+Favoritos
+Perfil
+
+FUNCIONALIDADES EXTRAS
+
+Representar discretamente outras possibilidades:
+
+❤️ Favoritos
+
+🛒 Lista de compras
+
+🕐 Histórico
+
+🔥 Timer
+
+🥗 Informações nutricionais
+
+👨‍🍳 Minhas receitas
+
+⭐ Avaliações
+
+🔔 Alertas do timer
+
+DESIGN SYSTEM
+
+Material Design 3.
+
+Cards:
+border-radius 20–24px.
+
+Fotografias com cantos arredondados.
+
+Sombras extremamente suaves.
+
+Muito espaço em branco.
+
+Grid de 8px.
+
+Ícones lineares modernos.
+
+Bottom navigation elegante.
+
+Componentes consistentes.
+
+Interface Android plausível e realmente implementável.
+
+FOTOGRAFIA
+
+Extremamente importante:
+
+A comida deve parecer REAL.
+
+Fotografia gastronômica hiper-realista.
+
+Luz natural suave.
+
+Texturas extremamente detalhadas.
+
+Crocância evidente.
+
+Vapor discreto.
+
+Alimentos dourados.
+
+Não utilizar comida com aparência artificial de render 3D.
+
+PUBLICIDADE / COMPOSIÇÃO
+
+Criar uma apresentação completa de lançamento do aplicativo.
+
+Formato horizontal 16:9.
+
+No centro:
+
+RECEITAS AIRFRYER
+
+Logo oficial criada para o aplicativo.
+
+Slogan:
+
+"Mais sabor. Menos complicação."
+
+Adicionar headline:
+
+"Sua Air Fryer nunca mais será a mesma."
+
+Ao redor:
+
+smartphones Android premium apresentando diferentes telas.
+
+Intercalar celulares com fotografias gastronômicas.
+
+Adicionar pequenos callouts:
+
+"+1.000 receitas"
+
+"Timer inteligente"
+
+"Receitas com o que você tem em casa"
+
+"Tempo e temperatura perfeitos"
+
+"Passo a passo"
+
+Adicionar selo:
+
+DISPONÍVEL PARA ANDROID
+
+IDENTIDADE VISUAL
+
+Em uma área da apresentação mostrar um mini BRAND KIT:
+
+LOGO
+
+APP ICON
+
+PALETA
+
+TIPOGRAFIA
+
+BOTÕES
+
+CARDS
+
+ÍCONES
+
+Mostrar aplicação do ícone em:
+
+• launcher Android
+• smartphone
+• Play Store
+
+PLAY STORE
+
+Mostrar também uma pequena simulação da página do aplicativo:
+
+RECEITAS AIRFRYER
+
+★★★★★ 4,9
+
+Receitas & Culinária
+
+Adicionar mockups das screenshots promocionais.
+
+Criar três possíveis chamadas para screenshots:
+
+"DESCUBRA O QUE FAZER HOJE"
+
+"ACERTE O TEMPO E A TEMPERATURA"
+
+"COZINHE COM O QUE VOCÊ TEM"
+
+QUALIDADE FINAL
+
+ALTÍSSIMA RESOLUÇÃO.
+
+Extremamente nítido.
+
+UI/UX profissional.
+
+Textos perfeitamente legíveis.
+
+Fotografia gastronômica premium.
+
+Proporções reais de smartphones Android.
+
+Material Design 3.
+
+Interface comercialmente viável.
+
+Apresentação de agência internacional de branding e product design.
+
+Produto com aparência de aplicativo real pronto para publicação na Google Play.
+
+Não criar apenas um conjunto de mockups.
+
+Criar uma verdadeira apresentação de lançamento de produto:
+
+BRANDING
++
+APP ICON
++
+DESIGN SYSTEM
++
+UX
++
+TELAS
++
+FOTOGRAFIA
++
+MATERIAL DA PLAY STORE
+
+O resultado precisa transmitir imediatamente:
+
+"Este é o aplicativo que todo dono de Air Fryer deveria ter instalado."
+
