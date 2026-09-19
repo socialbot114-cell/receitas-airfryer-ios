@@ -14,7 +14,7 @@ jobs:
         device:
           - name: iPhone 17
             slug: iphone
-          - name: iPad Pro 13-inch (M4)
+          - name: iPad Air 13-inch (M4)
             slug: ipad
     steps:
       - uses: actions/checkout@v4
