@@ -1,8 +1,12 @@
 package br.com.receitasairfryer.app
 
 import android.content.Context
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
@@ -37,6 +41,7 @@ class UserPreferences(private val context: Context) {
         val filterQuickOnly = booleanPreferencesKey("filter_quick_only")
         val filterHealthyOnly = booleanPreferencesKey("filter_healthy_only")
         val activeRecipe = stringPreferencesKey("active_recipe")
+        val activeStepIndex = intPreferencesKey("active_step_index")
         val activeStep = stringPreferencesKey("active_step")
         val timerEnd = longPreferencesKey("timer_end")
     }
@@ -52,7 +57,7 @@ class UserPreferences(private val context: Context) {
             filterQuickOnly = values[Keys.filterQuickOnly] ?: false,
             filterHealthyOnly = values[Keys.filterHealthyOnly] ?: false,
             activeRecipeId = values[Keys.activeRecipe],
-            activeStep = values[Keys.activeStep]?.toIntOrNull() ?: 0,
+            activeStep = values[Keys.activeStepIndex] ?: values[Keys.activeStep]?.toIntOrNull() ?: 0,
             timerEndTimestamp = values[Keys.timerEnd] ?: 0L
         )
     }
@@ -80,13 +85,42 @@ class UserPreferences(private val context: Context) {
 
     suspend fun saveTimer(recipeId: String, step: Int, endTimestamp: Long) = context.dataStore.edit {
         it[Keys.activeRecipe] = recipeId
-        it[Keys.activeStep] = step.toString()
+        it[Keys.activeStepIndex] = step
+        it.remove(Keys.activeStep)
         it[Keys.timerEnd] = endTimestamp
+        scheduleTimer(recipeId, step, endTimestamp)
     }
 
     suspend fun clearTimer() = context.dataStore.edit {
+        it[Keys.activeRecipe]?.let { recipeId -> cancelTimer(recipeId) }
         it.remove(Keys.activeRecipe)
+        it.remove(Keys.activeStepIndex)
         it.remove(Keys.activeStep)
         it.remove(Keys.timerEnd)
+    }
+
+    private fun scheduleTimer(recipeId: String, step: Int, endTimestamp: Long) {
+        val alarmManager = context.getSystemService(AlarmManager::class.java) ?: return
+        val intent = Intent(context, TimerAlarmReceiver::class.java)
+            .putExtra(TimerAlarmReceiver.RECIPE_ID, recipeId)
+            .putExtra(TimerAlarmReceiver.STEP, step)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            recipeId.hashCode(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, endTimestamp, pendingIntent)
+    }
+
+    private fun cancelTimer(recipeId: String) {
+        val intent = Intent(context, TimerAlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            recipeId.hashCode(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        context.getSystemService(AlarmManager::class.java)?.cancel(pendingIntent)
     }
 }

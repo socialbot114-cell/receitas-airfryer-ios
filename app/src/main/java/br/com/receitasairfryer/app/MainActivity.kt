@@ -1,5 +1,8 @@
 package br.com.receitasairfryer.app
 
+import android.Manifest
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -99,6 +102,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.platform.LocalView
@@ -310,6 +314,7 @@ private fun DetailScreen(recipe: Recipe, favorite: Boolean, onFavorite: () -> Un
 private fun CookScreen(recipe: Recipe, settings: UserSettings, preferences: UserPreferences, onBack: () -> Unit, modifier: Modifier = Modifier) {
     val scope = rememberCoroutineScope()
     val view = LocalView.current
+    val context = LocalContext.current
     DisposableEffect(settings.keepScreenOn) {
         val previous = view.keepScreenOn
         view.keepScreenOn = settings.keepScreenOn
@@ -331,15 +336,20 @@ private fun CookScreen(recipe: Recipe, settings: UserSettings, preferences: User
         Box(Modifier.fillMaxWidth().height(5.dp).clip(CircleShape).background(Color(0xFFE7E1DD))) { Box(Modifier.fillMaxWidth((stepIndex + 1f) / recipe.steps.size).height(5.dp).background(Orange)) }
         Text(step.instruction, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, lineHeight = 32.sp)
         Card(Modifier.fillMaxWidth(), shape = RoundedCornerShape(28.dp), colors = CardDefaults.cardColors(Ink)) { Column(Modifier.fillMaxWidth().padding(26.dp), horizontalAlignment = Alignment.CenterHorizontally) { Text("${recipe.temperature}°C", color = Gold, fontSize = 34.sp, fontWeight = FontWeight.Black); if (step.minutes > 0) { Text(formatTimer(if (timerEnd > 0) remaining else step.minutes * 60), color = Color.White, fontSize = 58.sp, fontWeight = FontWeight.Black); Text(if (timerEnd > 0 && remaining > 0) "RESTANTES" else if (timerEnd > 0) "TEMPO ENCERRADO" else "TEMPO DESTA ETAPA", color = Color(0xFFD8D2CD), fontSize = 11.sp, letterSpacing = 1.sp) } else { Icon(Icons.Outlined.Restaurant, null, tint = Gold, modifier = Modifier.size(56.dp)); Text("Prepare esta etapa e avance", color = Color.White) } } }
-        if (step.minutes > 0 && timerEnd == 0L) Button(onClick = { scope.launch { preferences.saveTimer(recipe.id, stepIndex, System.currentTimeMillis() + step.minutes * 60_000L) } }, Modifier.fillMaxWidth().height(56.dp), shape = RoundedCornerShape(18.dp), colors = ButtonDefaults.buttonColors(Orange)) { Icon(Icons.Outlined.Timer, null); Spacer(Modifier.width(8.dp)); Text("INICIAR TIMER", fontWeight = FontWeight.Bold) }
+        if (step.minutes > 0 && timerEnd == 0L) Button(onClick = {
+            if (Build.VERSION.SDK_INT >= 33) {
+                (context as? Activity)?.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1001)
+            }
+            scope.launch { preferences.saveTimer(recipe.id, stepIndex, System.currentTimeMillis() + step.minutes * 60_000L) }
+        }, Modifier.fillMaxWidth().height(56.dp), shape = RoundedCornerShape(18.dp), colors = ButtonDefaults.buttonColors(Orange)) { Icon(Icons.Outlined.Timer, null); Spacer(Modifier.width(8.dp)); Text("INICIAR TIMER", fontWeight = FontWeight.Bold) }
         if (timerEnd > 0L) Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             OutlinedButton(onClick = { confirmation = "restart" }, Modifier.weight(1f).height(52.dp), shape = RoundedCornerShape(16.dp)) { Text("REINICIAR") }
             OutlinedButton(onClick = { confirmation = "cancel" }, Modifier.weight(1f).height(52.dp), shape = RoundedCornerShape(16.dp)) { Text("CANCELAR") }
             Button(onClick = { scope.launch { preferences.saveTimer(recipe.id, stepIndex, maxOf(timerEnd, System.currentTimeMillis()) + 60_000L) } }, Modifier.weight(1f).height(52.dp), shape = RoundedCornerShape(16.dp), colors = ButtonDefaults.buttonColors(Green)) { Text("+ 1 MIN") }
         }
         Spacer(Modifier.weight(1f))
-        Button(onClick = { if (timerEnd > 0L && remaining > 0) confirmation = "advance" else if (stepIndex == recipe.steps.lastIndex) { scope.launch { preferences.clearTimer() }; showRecipeDone = true } else { scope.launch { preferences.clearTimer() }; stepIndex++ } }, Modifier.fillMaxWidth().height(56.dp), shape = RoundedCornerShape(18.dp), colors = ButtonDefaults.buttonColors(if (stepIndex == recipe.steps.lastIndex) Green else Orange)) { Text(if (stepIndex == recipe.steps.lastIndex) "FINALIZAR RECEITA" else "CONCLUIR E AVANÇAR", fontWeight = FontWeight.Bold) }
-        if (stepIndex > 0) OutlinedButton(onClick = { if (timerEnd > 0L && remaining > 0) confirmation = "previous" else { scope.launch { preferences.clearTimer() }; stepIndex-- } }, Modifier.fillMaxWidth()) { Text("Etapa anterior") }
+        Button(onClick = { if (timerEnd > 0L && remaining > 0) confirmation = "advance" else if (stepIndex == recipe.steps.lastIndex) { scope.launch { preferences.clearTimer() }; showRecipeDone = true } else { stepIndex++; scope.launch { preferences.clearTimer() } } }, Modifier.fillMaxWidth().height(56.dp), shape = RoundedCornerShape(18.dp), colors = ButtonDefaults.buttonColors(if (stepIndex == recipe.steps.lastIndex) Green else Orange)) { Text(if (stepIndex == recipe.steps.lastIndex) "FINALIZAR RECEITA" else "CONCLUIR E AVANÇAR", fontWeight = FontWeight.Bold) }
+        if (stepIndex > 0) OutlinedButton(onClick = { if (timerEnd > 0L && remaining > 0) confirmation = "previous" else { stepIndex--; scope.launch { preferences.clearTimer() } } }, Modifier.fillMaxWidth()) { Text("Etapa anterior") }
     }
     confirmation?.let { action ->
         val title = when (action) { "advance" -> "Avançar antes do tempo?"; "previous" -> "Voltar antes do tempo?"; "restart" -> "Reiniciar timer?"; else -> "Cancelar timer?" }
@@ -348,8 +358,8 @@ private fun CookScreen(recipe: Recipe, settings: UserSettings, preferences: User
             when (action) {
                 "restart" -> scope.launch { preferences.saveTimer(recipe.id, stepIndex, System.currentTimeMillis() + step.minutes * 60_000L) }
                 "cancel" -> scope.launch { preferences.clearTimer() }
-                "advance" -> { scope.launch { preferences.clearTimer() }; if (stepIndex == recipe.steps.lastIndex) showRecipeDone = true else stepIndex++ }
-                "previous" -> { scope.launch { preferences.clearTimer() }; stepIndex-- }
+                "advance" -> { if (stepIndex == recipe.steps.lastIndex) showRecipeDone = true else stepIndex++; scope.launch { preferences.clearTimer() } }
+                "previous" -> { stepIndex--; scope.launch { preferences.clearTimer() } }
             }
         }) { Text(if (action == "cancel") "CANCELAR TIMER" else "CONTINUAR") } }, dismissButton = { TextButton(onClick = { confirmation = null }) { Text("VOLTAR") } })
     }
