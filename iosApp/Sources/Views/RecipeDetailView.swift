@@ -73,7 +73,7 @@ struct CookingModeView: View {
                     .frame(maxWidth: 480)
                     .padding(.vertical, 32)
                     .padding(.horizontal, 24)
-                    .background(RoundedRectangle(cornerRadius: 28, style: .continuous).fill(.orange.opacity(0.12)))
+                    .background(RoundedRectangle(cornerRadius: 28, style: .continuous).fill(ReceitasTheme.ember.opacity(0.12)))
                     .accessibilityLabel("Tempo restante")
                     .accessibilityValue("\(timer.remainingSeconds / 60) minutos e \(timer.remainingSeconds % 60) segundos")
                 HStack {
