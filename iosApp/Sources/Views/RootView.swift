@@ -44,8 +44,8 @@ struct HomeView: View {
                     }
                     .padding(18)
                 }
+                .accessibilityElement(children: .contain)
                 .clipShape(RoundedRectangle(cornerRadius: 24))
-                .accessibilityLabel("Receitas caseiras preparadas na Airfryer")
 
                 Text("Escolha uma receita").font(.title2.bold())
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 155, maximum: 280), spacing: 16)], spacing: 16) {
