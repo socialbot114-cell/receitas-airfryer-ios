@@ -1,6 +1,18 @@
 import XCTest
 
 final class ReceitasAirfryerScreenshotTests: XCTestCase {
+    func testKitchenToolsComponentScreenshot() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-ui-testing", "-AppleLanguages", "(pt-BR)", "-AppleLocale", "pt_BR"]
+        app.launch()
+
+        let toolsHeading = app.staticTexts["Utensílios da Vovó"]
+        XCTAssertTrue(toolsHeading.waitForExistence(timeout: 10))
+        for _ in 0..<6 where !toolsHeading.isHittable { app.swipeUp() }
+        XCTAssertTrue(toolsHeading.isHittable)
+        capture(app, named: "receitas-airfryer-componentes-cozinha")
+    }
+
     func testRecipeFlowScreenshots() {
         let app = XCUIApplication()
         app.launchArguments = ["-ui-testing", "-AppleLanguages", "(pt-BR)", "-AppleLocale", "pt_BR"]

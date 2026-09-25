@@ -166,7 +166,7 @@
       "minutes": 16,
       "temperature": 190,
       "servings": 3,
-      "calories": 142,
+      "calories": 150,
       "difficulty": "Fácil",
       "preheat": true,
       "turn": true,
@@ -174,19 +174,21 @@
         "1 abobrinha pequena",
         "1/2 pimentão vermelho",
         "1/2 cebola roxa",
+        "1 cenoura pequena em meias-luas finas",
         "150 g de tomate-cereja",
         "1 colher (sopa) de azeite",
         "Orégano, sal e limão"
       ],
       "pantryKeys": [
         "abobrinha",
+        "cenoura",
         "tomate",
         "cebola",
         "azeite"
       ],
       "steps": [
         {
-          "instruction": "Corte os legumes em tamanhos semelhantes.",
+          "instruction": "Corte a cenoura em meias-luas finas e os demais legumes em tamanhos semelhantes.",
           "minutes": 0
         },
         {
