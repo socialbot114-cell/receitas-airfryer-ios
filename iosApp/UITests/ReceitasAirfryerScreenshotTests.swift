@@ -21,7 +21,7 @@ final class ReceitasAirfryerScreenshotTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Cozinhe algo gostoso hoje"].waitForExistence(timeout: 10))
         capture(app, named: "receitas-airfryer-home")
 
-        let discoverTab = app.tabBars.buttons["Descobrir"]
+        let discoverTab = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS[c] %@", "Descobrir")).firstMatch
         XCTAssertTrue(discoverTab.waitForExistence(timeout: 5))
         discoverTab.tap()
 
