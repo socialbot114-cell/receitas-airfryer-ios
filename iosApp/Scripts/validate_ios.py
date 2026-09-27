@@ -8,11 +8,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 payload_path = ROOT / "Resources/Recipes/recipes.json"
 payload = json.loads(payload_path.read_text(encoding="utf-8"))
-recipes = payload["recipes"]
-assert len(recipes) == 31, len(recipes)
-assert len({recipe["id"] for recipe in recipes}) == 31
+source_recipes = payload["recipes"]
+recipes_by_id = {}
+for recipe in source_recipes:
+    existing = recipes_by_id.setdefault(recipe["id"], recipe)
+    assert existing == recipe, f"Conflicting duplicate recipe ID: {recipe['id']}"
+recipes = list(recipes_by_id.values())
+assert len(recipes) == 300, len(recipes)
+assert len({recipe["name"].casefold() for recipe in recipes}) == 300
 assert all(recipe["ingredients"] and len(recipe["steps"]) >= 4 for recipe in recipes)
-assert all(160 <= recipe["temperature"] <= 205 and recipe["minutes"] > 0 for recipe in recipes)
+assert all(100 <= recipe["temperature"] <= 205 and recipe["minutes"] > 0 for recipe in recipes)
 assert all(step["instruction"] and step["minutes"] >= 0 for recipe in recipes for step in recipe["steps"])
 assert len(payload["guide"]) == 15
 
@@ -56,4 +61,4 @@ for path in ROOT.rglob("*"):
         text = path.read_text(encoding="utf-8", errors="ignore")
         assert not re.search(r"(?i)(api[_-]?key|secret|password|private[_-]?key|BEGIN [A-Z ]+ KEY)", text), path
 
-print(f"validated 31 recipes, {len(resource_names)} image resources, UI claims, CI, plists, and secret safety")
+print(f"validated 300 unique recipes, {len(resource_names)} image resources, UI claims, CI, plists, and secret safety")

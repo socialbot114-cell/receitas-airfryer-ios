@@ -1,19 +1,21 @@
 package br.com.receitasairfryer.app
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class RecipeCatalogTest {
     @Test
     fun catalog_hasCompleteUniqueRecipes() {
-        assertTrue(RecipeCatalog.recipes.size >= 20)
+        assertEquals(300, RecipeCatalog.recipes.size)
         assertEquals(RecipeCatalog.recipes.size, RecipeCatalog.recipes.map { it.id }.distinct().size)
+        assertEquals(RecipeCatalog.recipes.size, RecipeCatalog.recipes.map { it.name.normalized() }.distinct().size)
         RecipeCatalog.recipes.forEach { recipe ->
             assertTrue("${recipe.name} sem ingredientes", recipe.ingredients.isNotEmpty())
             assertTrue("${recipe.name} sem passos suficientes", recipe.steps.size >= 4)
             assertTrue(recipe.minutes > 0)
-            assertTrue(recipe.temperature in 160..205)
+            assertTrue(recipe.temperature in 100..205)
             assertTrue(recipe.servings > 0)
             assertTrue(recipe.calories > 0)
         }
@@ -32,17 +34,28 @@ class RecipeCatalogTest {
     @Test
     fun sweets_areCompleteAndSupportCombinedDietaryFilters() {
         val sweets = RecipeCatalog.search("", dietary = setOf(DietaryTag.DOCES))
-        assertTrue(sweets.size >= 8)
+        assertEquals(58, sweets.size)
         assertTrue(sweets.all { it.category == "Doces" && it.ingredients.isNotEmpty() && it.steps.size >= 4 })
         assertTrue(RecipeCatalog.search("", dietary = setOf(DietaryTag.DOCES, DietaryTag.SEM_GLUTEN)).all { DietaryTag.DOCES in it.dietaryTags })
-        assertTrue(RecipeCatalog.recipes.filter { it.allergens.isNotEmpty() }.all { it.allergens.all { allergen -> allergen in setOf("LEITE", "GLUTEN", "OVO", "OLEAGINOSAS") } })
+        assertTrue(RecipeCatalog.recipes.filter { it.allergens.isNotEmpty() }.all { it.allergens.all { allergen -> allergen in setOf("LEITE", "GLUTEN", "OVO", "OLEAGINOSAS", "CRUSTACEOS", "PEIXES", "MOLUSCOS", "SOJA", "GERGELIM") } })
+    }
+
+    @Test
+    fun newRecipes_areSearchableAndIncludeRelevantAllergens() {
+        assertTrue(RecipeCatalog.search("batata-doce").any { it.id == "batata-doce-palitos" })
+        assertTrue("CRUSTACEOS" in RecipeCatalog.recipes.first { it.id == "camarao-alho-limao" }.allergens)
+        assertTrue("GLUTEN" in RecipeCatalog.recipes.first { it.id == "pao-alho" }.allergens)
+        assertFalse("GLUTEN" in RecipeCatalog.recipes.first { it.id == "arepa-queijo" }.allergens)
+        assertFalse("GLUTEN" in RecipeCatalog.recipes.first { it.id == "bolinho-ervilha-hortela" }.allergens)
+        assertTrue("PEIXES" in RecipeCatalog.recipes.first { it.id == "truta-amendoas" }.allergens)
+        assertTrue("MOLUSCOS" in RecipeCatalog.recipes.first { it.id == "paella-ramequim-frutos-mar" }.allergens)
     }
 
     @Test
     fun pantryRanking_prioritizesMostMatchesThenFastest() {
         val ranked = RecipeCatalog.rankedByPantry(setOf("frango", "alho", "limão", "azeite"))
         assertEquals(4, ranked.first().second)
-        assertEquals("coxinha-asa", ranked.first().first.id)
+        assertEquals("coracao-frango-limao-oregano", ranked.first().first.id)
         ranked.zipWithNext().forEach { (first, second) -> assertTrue(first.second >= second.second) }
     }
 

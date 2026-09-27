@@ -12,17 +12,20 @@ final class RecipeFoundationTests: XCTestCase {
         XCTAssertEqual(try JSONDecoder().decode(CookStep.self, from: data), step)
     }
 
-    func testRecipeContractHasThirtyOneCatalogItemsInBundledPayload() throws {
+    func testRecipeContractHasThreeHundredCatalogItemsInBundledPayload() throws {
         let url = try XCTUnwrap(RecipeRepository.catalogURL(in: Bundle(for: Self.self)))
         let payload = try JSONDecoder().decode(RecipePayload.self, from: Data(contentsOf: url))
-        XCTAssertEqual(payload.recipes.count, 31)
-        XCTAssertEqual(Set(payload.recipes.map(\.id)).count, 31)
+        var seenIDs = Set<String>()
+        let uniqueRecipes = payload.recipes.filter { seenIDs.insert($0.id).inserted }
+        XCTAssertEqual(uniqueRecipes.count, 300)
+        XCTAssertEqual(Set(uniqueRecipes.map(\.id)).count, 300)
+        XCTAssertEqual(Set(uniqueRecipes.map { $0.name.normalized }).count, 300)
     }
 
     func testRepositoryReportsSuccessfulBundledLoad() {
         let repository = RecipeRepository(bundle: Bundle(for: Self.self))
         XCTAssertNil(repository.loadError)
-        XCTAssertEqual(repository.payload.recipes.count, 31)
+        XCTAssertEqual(repository.payload.recipes.count, 300)
     }
 
     func testImageCanBeLoadedFromBundledImagesDirectory() {

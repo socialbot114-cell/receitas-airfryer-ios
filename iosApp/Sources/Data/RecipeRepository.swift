@@ -12,7 +12,10 @@ struct RecipeRepository {
             return
         }
         do {
-            payload = try JSONDecoder().decode(RecipePayload.self, from: Data(contentsOf: url))
+            let decoded = try JSONDecoder().decode(RecipePayload.self, from: Data(contentsOf: url))
+            var seenIDs = Set<String>()
+            let uniqueRecipes = decoded.recipes.filter { seenIDs.insert($0.id).inserted }
+            payload = RecipePayload(recipes: uniqueRecipes, guide: decoded.guide)
             loadError = nil
         } catch {
             payload = RecipePayload(recipes: [], guide: [])

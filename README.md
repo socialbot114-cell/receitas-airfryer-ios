@@ -4,7 +4,7 @@ MVP Android nativo em Kotlin + Jetpack Compose, com experiência offline-first.
 
 ## Produto
 
-- 30 receitas completas, incluindo 11 doces, com ingredientes, passos, tempo, temperatura, porções, calorias estimadas e orientações de pré-aquecimento/virada.
+- 300 receitas completas, incluindo 58 doces, com ingredientes, passos, tempo, temperatura, porções, calorias estimadas e orientações de pré-aquecimento/virada.
 - Busca e filtros determinísticos, guia de 15 alimentos, favoritos e despensa persistidos com DataStore.
 - Ranking por ingredientes disponíveis e modo cozinhar com timer baseado em timestamp, resistente a recomposição e background.
 - Logo, adaptive icon, splash Android 12+ e artes gastronômicas procedurais próprias, sem dependência de rede.
