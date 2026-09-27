@@ -31,7 +31,7 @@ dispatched on the selected branch):
   attachment manifest maps the generated filenames to screen names.
 - `Receitas iOS TestFlight` signs and archives the app, exports and validates
   the IPA, then uploads it to App Store Connect using the configured API key.
-  The release workflow currently sets marketing version `1.0.1`; its build
+  The release workflow currently sets marketing version `1.0.2`; its build
   number is `GITHUB_RUN_NUMBER`. Update the workflow's marketing version for a
   future release.
 
