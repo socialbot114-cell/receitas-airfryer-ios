@@ -28,26 +28,25 @@ final class ReceitasAirfryerScreenshotTests: XCTestCase {
         let searchField = app.textFields["Buscar receita ou ingrediente"]
         XCTAssertTrue(searchField.waitForExistence(timeout: 5))
         searchField.tap()
-        searchField.typeText("falafel\n")
+        searchField.typeText("batata-doce\n")
 
-        let recipe = app.buttons.matching(NSPredicate(format: "label CONTAINS[c] %@", "Falafel na Air Fryer")).firstMatch
+        let recipe = app.buttons.matching(NSPredicate(format: "label CONTAINS[c] %@", "Batata-doce em palitos")).firstMatch
         XCTAssertTrue(recipe.waitForExistence(timeout: 5))
         for _ in 0..<5 where !recipe.isHittable { app.swipeUp() }
         XCTAssertTrue(recipe.isHittable)
-        capture(app, named: "receitas-airfryer-nova-receita-falafel")
+        capture(app, named: "receitas-airfryer-nova-receita-batata-doce")
         recipe.tap()
-        XCTAssertTrue(app.staticTexts["Falafel na Air Fryer"].waitForExistence(timeout: 5))
-        capture(app, named: "receitas-airfryer-receita-falafel")
+        XCTAssertTrue(app.staticTexts["Batata-doce em palitos"].waitForExistence(timeout: 5))
+        capture(app, named: "receitas-airfryer-receita-batata-doce")
 
         let startCooking = app.buttons["Começar a cozinhar"]
         XCTAssertTrue(startCooking.waitForExistence(timeout: 5))
         startCooking.tap()
-        XCTAssertTrue(app.staticTexts["Passo 1 de 6"].waitForExistence(timeout: 5))
-        app.buttons["Próximo"].tap()
+        XCTAssertTrue(app.staticTexts["Passo 1 de 5"].waitForExistence(timeout: 5))
         app.buttons["Próximo"].tap()
         app.buttons["Próximo"].tap()
         XCTAssertTrue(app.staticTexts["Tempo restante"].waitForExistence(timeout: 5))
-        capture(app, named: "receitas-airfryer-timer-falafel")
+        capture(app, named: "receitas-airfryer-timer-batata-doce")
     }
 
     private func capture(_ app: XCUIApplication, named name: String) {
