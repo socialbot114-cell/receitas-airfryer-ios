@@ -35,9 +35,21 @@ struct RecipeDetailView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     sectionTitle("Modo de preparo", artwork: ComponentArtwork.rosemary)
                     ForEach(Array(recipe.steps.enumerated()), id: \.offset) { index, step in
-                        Label(step.instruction, systemImage: "\(index + 1).circle.fill")
-                            .labelStyle(NumberedStepLabelStyle())
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Label {
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(step.instruction)
+                                if step.minutes > 0 {
+                                    Text("\(step.minutes) min")
+                                        .font(.caption.weight(.bold))
+                                        .foregroundStyle(ReceitasTheme.ember)
+                                }
+                            }
+                        } icon: {
+                            Image(systemName: "\(index + 1).circle.fill")
+                        }
+                        .labelStyle(NumberedStepLabelStyle())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .accessibilityElement(children: .combine)
                     }
                 }
                 .padding(18)
@@ -79,6 +91,10 @@ struct RecipeDetailView: View {
                 VStack(alignment: .leading, spacing: 8) { recipeFacts }
             }
 
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 10, alignment: .leading)], alignment: .leading, spacing: 8) {
+                cookingTips
+            }
+
             if !recipe.steps.isEmpty {
                 NavigationLink(destination: CookingModeView(recipe: recipe)) {
                     Label("Começar a cozinhar", systemImage: "play.fill")
@@ -100,6 +116,14 @@ struct RecipeDetailView: View {
         factPill("\(recipe.minutes) min", systemImage: "clock")
         factPill("\(recipe.temperature)°C", systemImage: "thermometer.medium")
         factPill("\(recipe.servings) porções", systemImage: "person.2")
+    }
+
+    @ViewBuilder private var cookingTips: some View {
+        factPill(recipe.difficulty, systemImage: "chart.bar")
+        factPill("≈ \(recipe.calories) kcal", systemImage: "fork.knife")
+            .accessibilityLabel("Estimativa de \(recipe.calories) quilocalorias")
+        factPill(recipe.preheat ? "Pré-aqueça" : "Sem pré-aquecer", systemImage: "flame")
+        factPill(recipe.turn ? "Vire na metade" : "Não precisa virar", systemImage: "arrow.triangle.2.circlepath")
     }
 
     private func factPill(_ title: String, systemImage: String) -> some View {
@@ -176,7 +200,12 @@ struct CookingModeView: View {
         .navigationTitle("Modo cozinhar")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .tabBar)
-        .onAppear { if !timer.isRunning { timer.start(at: Date()) } }
+        .onAppear {
+            CookingTimerNotifier.requestAuthorization()
+            if !timer.isRunning { timer.start(at: Date()) }
+            syncNotification()
+        }
+        .onDisappear { CookingTimerNotifier.cancel() }
         .onReceive(tick) { date in refreshTimer(at: date) }
         .onChange(of: scenePhase) { _, phase in if phase == .active { refreshTimer(at: Date()) } }
         .alert("Tempo concluído", isPresented: $showTimerCompletion) { Button("OK", role: .cancel) {} } message: { Text("Este passo está pronto. Confira o alimento antes de continuar.") }
@@ -261,7 +290,10 @@ struct CookingModeView: View {
                         .buttonStyle(.bordered)
                         .tint(ReceitasTheme.ember)
                 }
-                Button("Reiniciar") { timer.reset(startingAt: Date()) }
+                Button("Reiniciar") {
+                    timer.reset(startingAt: Date())
+                    syncNotification()
+                }
                     .buttonStyle(.bordered)
                     .tint(ReceitasTheme.ember)
             }
@@ -309,11 +341,13 @@ struct CookingModeView: View {
         step = newStep
         timer = CookingTimer(duration: recipe.steps[newStep].minutes * 60)
         timer.start(at: Date())
+        syncNotification()
     }
 
     private func advance() {
         guard step + 1 < recipe.steps.count else {
             timer.pause(at: Date())
+            syncNotification()
             isFinished = true
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             return
@@ -323,6 +357,7 @@ struct CookingModeView: View {
 
     private func refreshTimer(at date: Date) {
         if timer.refresh(at: date) {
+            syncNotification()
             showTimerCompletion = true
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         }
@@ -331,5 +366,15 @@ struct CookingModeView: View {
     private func toggleTimer() {
         if timer.isRunning { timer.pause(at: Date()) }
         else { timer.start(at: Date()) }
+        syncNotification()
+    }
+
+    /// Keeps the background notification aligned with the on-screen timer.
+    private func syncNotification() {
+        if timer.isRunning {
+            CookingTimerNotifier.schedule(recipeName: recipe.name, stepNumber: step + 1, after: timer.remaining(at: Date()))
+        } else {
+            CookingTimerNotifier.cancel()
+        }
     }
 }

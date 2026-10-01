@@ -41,16 +41,23 @@ struct HomeView: View {
                 HStack(spacing: 10) {
                     ComponentArtworkView(name: ComponentArtwork.ribbon)
                         .frame(width: 60, height: 34)
-                    Text("Escolha uma receita")
+                    Text("Sugestões de hoje")
                         .font(ReceitasTheme.display(22, weight: .bold))
                         .foregroundStyle(ReceitasTheme.crust)
                 }
                 .accessibilityElement(children: .combine)
 
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(Array(store.repository.payload.recipes.prefix(6))) { recipe in
+                    ForEach(store.repository.dailyHighlights()) { recipe in
                         RecipeCard(recipe: recipe, imageHeight: horizontalSizeClass == .regular ? 170 : 122)
                     }
+                }
+
+                if !store.repository.payload.guide.isEmpty {
+                    NavigationLink(destination: CookingGuideView(items: store.repository.payload.guide)) {
+                        GuideEntryCard(count: store.repository.payload.guide.count)
+                    }
+                    .buttonStyle(.plain)
                 }
 
                 KitchenToolsCarousel()
@@ -273,9 +280,23 @@ struct ProfileView: View {
         NavigationStack {
             Form {
                 Section("Sua cozinha") {
-                    Label("Receitas disponíveis", systemImage: "book.fill")
-                    Text("\(store.repository.payload.recipes.count) receitas offline")
-                        .foregroundStyle(.secondary)
+                    LabeledContent {
+                        Text("\(store.repository.payload.recipes.count)")
+                    } label: {
+                        Label("Receitas offline", systemImage: "book.fill")
+                    }
+                    LabeledContent {
+                        Text("\(store.favorites.count)")
+                    } label: {
+                        Label("Favoritas", systemImage: "heart.fill")
+                    }
+                }
+                if !store.repository.payload.guide.isEmpty {
+                    Section("Guia rápido") {
+                        NavigationLink(destination: CookingGuideView(items: store.repository.payload.guide)) {
+                            Label("Tempos e temperaturas", systemImage: "thermometer.medium")
+                        }
+                    }
                 }
                 Section("Sobre") {
                     Label("Receitas Airfryer", systemImage: "sparkles")
@@ -428,6 +449,88 @@ struct RecipeImage: View {
         .background(ReceitasTheme.cream.opacity(0.72))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
         .accessibilityLabel("Ilustração de \(recipe.name)")
+    }
+}
+
+private struct GuideEntryCard: View {
+    let count: Int
+
+    var body: some View {
+        HStack(spacing: 14) {
+            Image(systemName: "thermometer.medium")
+                .font(.title2.weight(.semibold))
+                .foregroundStyle(.white)
+                .frame(width: 52, height: 52)
+                .background(ReceitasTheme.ember, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Guia de tempos e temperaturas")
+                    .font(ReceitasTheme.display(19, weight: .bold))
+                    .foregroundStyle(ReceitasTheme.crust)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text("\(count) alimentos do dia a dia, com corte e dica de preparo.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
+            Image(systemName: "chevron.right").foregroundStyle(.tertiary)
+        }
+        .padding(16)
+        .background(.white, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).stroke(ReceitasTheme.crust.opacity(0.08), lineWidth: 1))
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+    }
+}
+
+struct CookingGuideView: View {
+    let items: [GuideItem]
+    @State private var query = ""
+
+    private var filteredItems: [GuideItem] {
+        let needle = query.normalized
+        guard !needle.isEmpty else { return items }
+        return items.filter { "\($0.name) \($0.cut)".normalized.contains(needle) }
+    }
+
+    var body: some View {
+        List {
+            Section {
+                ForEach(filteredItems, id: \.self) { item in
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text(item.name)
+                                .font(.headline)
+                                .foregroundStyle(ReceitasTheme.crust)
+                            Spacer(minLength: 8)
+                            Text("\(item.temperature)°C")
+                                .font(.subheadline.weight(.bold))
+                                .foregroundStyle(ReceitasTheme.ember)
+                        }
+                        HStack(spacing: 12) {
+                            Label(item.time, systemImage: "clock")
+                            Label(item.cut, systemImage: "scissors")
+                        }
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        Text(item.tip)
+                            .font(.subheadline)
+                            .foregroundStyle(ReceitasTheme.crust.opacity(0.8))
+                    }
+                    .padding(.vertical, 4)
+                    .accessibilityElement(children: .combine)
+                }
+            } footer: {
+                Text("Tempos aproximados. Cada Airfryer aquece de um jeito: confira o ponto antes de servir.")
+            }
+        }
+        .overlay {
+            if filteredItems.isEmpty {
+                ContentUnavailableView.search(text: query)
+            }
+        }
+        .searchable(text: $query, prompt: "Buscar alimento")
+        .navigationTitle("Guia rápido")
     }
 }
 

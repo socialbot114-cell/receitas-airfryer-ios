@@ -5,7 +5,8 @@ Native SwiftUI foundation for App Store ID `6813681707`.
 - Bundle identifier: `br.com.receitasairfyer`
 - Offline JSON catalog generated from Android `RecipeCatalog.kt`
 - 300 recipes, 15 guide entries, favorites in `UserDefaults`
-- Home, Discover, Favorites, Profile, recipe detail, and background-resilient cooking timers
+- Home with daily rotating suggestions, Discover, Favorites, Profile, cooking guide, recipe detail
+- Cooking timers that survive backgrounding and alert with a local notification
 - Native iPhone and iPad layouts with Dynamic Type and VoiceOver support
 - No network permission, account, analytics, or embedded credentials
 
@@ -31,7 +32,7 @@ dispatched on the selected branch):
   attachment manifest maps the generated filenames to screen names.
 - `Receitas iOS TestFlight` signs and archives the app, exports and validates
   the IPA, then uploads it to App Store Connect using the configured API key.
-  The release workflow currently sets marketing version `1.0.2`; its build
+  The release workflow currently sets marketing version `1.1.0`; its build
   number is `GITHUB_RUN_NUMBER`. Update the workflow's marketing version for a
   future release.
 

@@ -1,4 +1,5 @@
 import XCTest
+import UserNotifications
 @testable import ReceitasAirfryer
 
 final class RecipeFoundationTests: XCTestCase {
@@ -46,6 +47,44 @@ final class RecipeFoundationTests: XCTestCase {
             let assetName = ComponentArtwork.recipeImageName(for: recipe)
             XCTAssertNotNil(RecipeBundleImage.load(name: assetName, bundle: bundle), "Missing artwork for \(recipe.id): \(assetName)")
         }
+    }
+
+    func testRecipeSpecificArtworkPrecedesCategoryFallback() throws {
+        let repository = RecipeRepository(bundle: Bundle(for: Self.self))
+        let salmon = try XCTUnwrap(repository.payload.recipes.first { $0.id == "salmao-ervas" })
+        let falafel = try XCTUnwrap(repository.payload.recipes.first { $0.id == "falafel-airfryer" })
+        let potatoes = try XCTUnwrap(repository.payload.recipes.first { $0.id == "batata-crocante" })
+
+        XCTAssertEqual(ComponentArtwork.recipeImageName(for: salmon), "asset_salmao_ervas")
+        XCTAssertEqual(ComponentArtwork.recipeImageName(for: falafel), "component_dish_legumes")
+        XCTAssertEqual(ComponentArtwork.recipeImageName(for: potatoes), "component_dish_batata_crocante")
+    }
+
+    func testDailyHighlightsAreUniqueStableAndRotate() {
+        let repository = RecipeRepository(bundle: Bundle(for: Self.self))
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "America/Sao_Paulo")!
+        let today = Date(timeIntervalSince1970: 1_790_000_000)
+        let tomorrow = today.addingTimeInterval(86_400)
+
+        let highlights = repository.dailyHighlights(on: today, calendar: calendar)
+        XCTAssertEqual(highlights.count, 6)
+        XCTAssertEqual(Set(highlights.map(\.id)).count, 6)
+        XCTAssertEqual(highlights.map(\.id), repository.dailyHighlights(on: today.addingTimeInterval(60), calendar: calendar).map(\.id))
+        XCTAssertNotEqual(highlights.map(\.id), repository.dailyHighlights(on: tomorrow, calendar: calendar).map(\.id))
+    }
+
+    func testCookingGuideIsBundled() {
+        let repository = RecipeRepository(bundle: Bundle(for: Self.self))
+        XCTAssertEqual(repository.payload.guide.count, 15)
+        XCTAssertTrue(repository.payload.guide.allSatisfy { !$0.name.isEmpty && $0.temperature > 0 })
+    }
+
+    func testTimerNotificationNamesRecipeAndStep() {
+        let content = CookingTimerNotifier.content(recipeName: "Batata crocante", stepNumber: 2)
+        XCTAssertEqual(content.title, "Tempo concluído")
+        XCTAssertTrue(content.body.contains("Batata crocante"))
+        XCTAssertTrue(content.body.contains("passo 2"))
     }
 
     func testVegetableRecipeIncludesMatchingCarrotArtwork() throws {

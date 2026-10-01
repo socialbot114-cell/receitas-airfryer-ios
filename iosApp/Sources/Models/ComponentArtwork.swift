@@ -100,7 +100,7 @@ enum ComponentArtwork {
     }
 
     static func recipeImageName(for recipe: Recipe) -> String {
-        recipeDishes[recipe.id] ?? categoryArtwork[recipe.category] ?? recipe.imageName ?? ""
+        recipeDishes[recipe.id] ?? recipe.imageName ?? categoryArtwork[recipe.category] ?? ""
     }
 
     static func badgeNames(for recipe: Recipe) -> [String] {

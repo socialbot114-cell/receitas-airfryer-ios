@@ -33,6 +33,17 @@ struct RecipeRepository {
             return (needle.isEmpty || text.contains(needle)) && (category == nil || recipe.category == category) && (!quickOnly || recipe.minutes <= 15) && (!healthyOnly || recipe.healthy)
         }
     }
+
+    /// Picks recipes spread across the catalog that change once per day, so the
+    /// home screen surfaces the whole collection over time.
+    func dailyHighlights(on date: Date = Date(), count: Int = 6, calendar: Calendar = .current) -> [Recipe] {
+        let recipes = payload.recipes
+        let total = min(count, recipes.count)
+        guard total > 0 else { return [] }
+        let day = calendar.ordinality(of: .day, in: .era, for: date) ?? 0
+        let stride = recipes.count / total
+        return (0..<total).map { recipes[(day + $0 * stride) % recipes.count] }
+    }
 }
 
 enum RecipeCatalogState: Equatable {
