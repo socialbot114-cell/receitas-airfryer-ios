@@ -100,12 +100,14 @@ enum ComponentArtwork {
     }
 
     static func recipeImageName(for recipe: Recipe) -> String {
-        recipeDishes[recipe.id] ?? recipe.imageName ?? categoryArtwork[recipe.category] ?? ""
+        recipeDishes[recipe.id] ?? categoryArtwork[recipe.category] ?? recipe.imageName ?? ""
     }
 
     /// True when the recipe has its own dish image instead of the category fallback.
+    /// The catalog's legacy `imageName` assets are decorative art, not dish photos,
+    /// so only `recipeDishes` counts.
     static func hasSpecificArtwork(_ recipe: Recipe) -> Bool {
-        recipeDishes[recipe.id] != nil || recipe.imageName != nil
+        recipeDishes[recipe.id] != nil
     }
 
     static func badgeNames(for recipe: Recipe) -> [String] {

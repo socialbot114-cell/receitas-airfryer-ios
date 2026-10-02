@@ -49,15 +49,18 @@ final class RecipeFoundationTests: XCTestCase {
         }
     }
 
-    func testRecipeSpecificArtworkPrecedesCategoryFallback() throws {
+    func testRecipesResolveToDishArtworkNotDecorativeAssets() throws {
         let repository = RecipeRepository(bundle: Bundle(for: Self.self))
         let salmon = try XCTUnwrap(repository.payload.recipes.first { $0.id == "salmao-ervas" })
         let falafel = try XCTUnwrap(repository.payload.recipes.first { $0.id == "falafel-airfryer" })
         let potatoes = try XCTUnwrap(repository.payload.recipes.first { $0.id == "batata-crocante" })
 
-        XCTAssertEqual(ComponentArtwork.recipeImageName(for: salmon), "asset_salmao_ervas")
+        XCTAssertEqual(ComponentArtwork.recipeImageName(for: salmon), "component_dish_tilapia")
         XCTAssertEqual(ComponentArtwork.recipeImageName(for: falafel), "component_dish_legumes")
         XCTAssertEqual(ComponentArtwork.recipeImageName(for: potatoes), "component_dish_batata_crocante")
+        for recipe in repository.payload.recipes {
+            XCTAssertTrue(ComponentArtwork.recipeImageName(for: recipe).hasPrefix("component_dish_"), recipe.id)
+        }
     }
 
     func testDailyHighlightsAreUniqueStableAndRotate() {
