@@ -36,8 +36,8 @@ struct RecipeRepository {
 
     /// Picks recipes spread across the catalog that change once per day, so the
     /// home screen surfaces the whole collection over time.
-    func dailyHighlights(on date: Date = Date(), count: Int = 6, calendar: Calendar = .current) -> [Recipe] {
-        let recipes = payload.recipes
+    func dailyHighlights(on date: Date = Date(), count: Int = 6, calendar: Calendar = .current, where isEligible: (Recipe) -> Bool = { _ in true }) -> [Recipe] {
+        let recipes = payload.recipes.filter(isEligible)
         let total = min(count, recipes.count)
         guard total > 0 else { return [] }
         let day = calendar.ordinality(of: .day, in: .era, for: date) ?? 0

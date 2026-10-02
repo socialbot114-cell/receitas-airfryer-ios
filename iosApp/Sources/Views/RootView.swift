@@ -48,7 +48,7 @@ struct HomeView: View {
                 .accessibilityElement(children: .combine)
 
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(store.repository.dailyHighlights()) { recipe in
+                    ForEach(store.repository.dailyHighlights(where: ComponentArtwork.hasSpecificArtwork)) { recipe in
                         RecipeCard(recipe: recipe, imageHeight: horizontalSizeClass == .regular ? 170 : 122)
                     }
                 }

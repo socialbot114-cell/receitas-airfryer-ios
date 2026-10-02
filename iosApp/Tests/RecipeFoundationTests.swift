@@ -74,6 +74,13 @@ final class RecipeFoundationTests: XCTestCase {
         XCTAssertNotEqual(highlights.map(\.id), repository.dailyHighlights(on: tomorrow, calendar: calendar).map(\.id))
     }
 
+    func testHomeHighlightsOnlyUseRecipeSpecificArtwork() {
+        let repository = RecipeRepository(bundle: Bundle(for: Self.self))
+        let highlights = repository.dailyHighlights(where: ComponentArtwork.hasSpecificArtwork)
+        XCTAssertEqual(highlights.count, 6)
+        XCTAssertTrue(highlights.allSatisfy(ComponentArtwork.hasSpecificArtwork))
+    }
+
     func testCookingGuideIsBundled() {
         let repository = RecipeRepository(bundle: Bundle(for: Self.self))
         XCTAssertEqual(repository.payload.guide.count, 15)

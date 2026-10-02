@@ -103,6 +103,11 @@ enum ComponentArtwork {
         recipeDishes[recipe.id] ?? recipe.imageName ?? categoryArtwork[recipe.category] ?? ""
     }
 
+    /// True when the recipe has its own dish image instead of the category fallback.
+    static func hasSpecificArtwork(_ recipe: Recipe) -> Bool {
+        recipeDishes[recipe.id] != nil || recipe.imageName != nil
+    }
+
     static func badgeNames(for recipe: Recipe) -> [String] {
         var badges: [String] = []
         if recipe.minutes <= 15 { badges.append(quickBadge) }
