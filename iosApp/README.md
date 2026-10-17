@@ -39,6 +39,11 @@ dispatched on the selected branch):
   if more than one Xcode Cloud workflow is enabled, provide its exact name.
   This requires the app and GitHub repository to be connected in Xcode Cloud
   and the App Store Connect API credentials already stored in GitHub Actions.
+  For a new app connection, create the first workflow in Xcode via
+  **Product > Xcode Cloud > Create Workflow**, grant it access to this GitHub
+  repository, and enable App Store Connect/TestFlight distribution. Apple’s
+  [first workflow guide](https://developer.apple.com/documentation/xcode/configuring-your-first-xcode-cloud-workflow)
+  covers that one-time setup.
   Xcode Cloud runs `ci_scripts/ci_post_clone.sh` to generate the Xcode project
   with the Apple team ID supplied by Xcode Cloud for automatic signing. The
   trigger verifies the selected workflow, branch, source commit, and resulting

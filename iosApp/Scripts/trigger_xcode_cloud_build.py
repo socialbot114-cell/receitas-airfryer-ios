@@ -236,10 +236,17 @@ def main() -> None:
         visible_links = ", ".join(
             f"{product['id']}→{product_app_ids.get(product['id'], 'unknown')}" for product in products
         ) or "none"
+        remediation = (
+            "Complete the first Xcode Cloud setup in Xcode (Product > Xcode Cloud > Create Workflow), "
+            "grant access to this GitHub repository, and enable App Store Connect/TestFlight distribution. "
+            "Then rerun this GitHub Actions workflow."
+            if not products_for_app
+            else "Confirm the App Store Connect API key can access Xcode Cloud and that this app has one linked product."
+        )
         raise RuntimeError(
             f"Verified App Store Connect app {APP_STORE_CONNECT_APP_ID} ({BUNDLE_ID}), "
             f"but found {len(products_for_app)} linked Xcode Cloud products. Visible links: {visible_links}. "
-            f"Direct app-product lookup: {direct_lookup}. No build request was sent."
+            f"Direct app-product lookup: {direct_lookup}. No build request was sent. {remediation}"
         )
 
     product = products_for_app[0]
