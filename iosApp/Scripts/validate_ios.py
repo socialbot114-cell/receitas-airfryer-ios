@@ -57,6 +57,16 @@ assert "xcodebuild test" in ci
 assert 'CURRENT_PROJECT_VERSION="$GITHUB_RUN_NUMBER"' in release
 marketing_version = re.search(r"MARKETING_VERSION: ([0-9.]+)", project).group(1)
 assert f"MARKETING_VERSION={marketing_version}" in release
+assert re.search(r"CURRENT_PROJECT_VERSION: (\d+)", project)
+assert "workflow_dispatch:" in ci and "run_xcode_cloud" in ci
+xcode_cloud = (ROOT / "Scripts/trigger_xcode_cloud_build.py").read_text(encoding="utf-8")
+assert 'APP_STORE_CONNECT_APP_ID = "6813681707"' in xcode_cloud
+assert 'BUNDLE_ID = "br.com.receitasairfyer"' in xcode_cloud
+assert "MARKETING_VERSION, BUILD_NUMBER = project_release_identity()" in xcode_cloud
+post_clone = ROOT.parent / "ci_scripts/ci_post_clone.sh"
+assert post_clone.stat().st_mode & 0o111
+assert 'team_id="${CI_TEAM_ID:' in post_clone.read_text(encoding="utf-8")
+assert 'run: python iosApp/Scripts/trigger_xcode_cloud_build.py' in ci
 
 for path in ROOT.rglob("*"):
     if path.is_file() and path.name != "validate_ios.py" and path.suffix not in {".png", ".json"}:

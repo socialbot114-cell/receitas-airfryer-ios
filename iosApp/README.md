@@ -34,6 +34,17 @@ dispatched on the selected branch):
   the IPA, then uploads it to App Store Connect using the configured API key.
   The release workflow sets marketing version `1.2.0`; its build number is
   `GITHUB_RUN_NUMBER`.
+- `iOS CI` can also trigger the connected Xcode Cloud workflow after its
+  simulator tests pass. Manually dispatch it with `run_xcode_cloud` enabled;
+  if more than one Xcode Cloud workflow is enabled, provide its exact name.
+  This requires the app and GitHub repository to be connected in Xcode Cloud
+  and the App Store Connect API credentials already stored in GitHub Actions.
+  Xcode Cloud runs `ci_scripts/ci_post_clone.sh` to generate the Xcode project
+  with the Apple team ID supplied by Xcode Cloud for automatic signing. The
+  trigger verifies the selected workflow, branch, source commit, and resulting
+  TestFlight build before the job succeeds. Its version and build number come
+  from `project.yml`; increment `CURRENT_PROJECT_VERSION` before requesting
+  another Xcode Cloud distribution.
 
 A successful upload means Apple accepted the binary for processing; it does
 not mean the build is immediately available in TestFlight or published on the
