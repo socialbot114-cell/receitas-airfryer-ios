@@ -25,6 +25,29 @@ ACTIVE_SUBMISSION_STATES = {
     "CANCELING",
     "COMPLETING",
 }
+VERSION_LOCALIZATION_FIELDS = (
+    "description",
+    "keywords",
+    "marketingUrl",
+    "promotionalText",
+    "supportUrl",
+    "whatsNew",
+)
+RELEASE_NOTES = {
+    "pt-BR": (
+        "Timer com notificação mesmo com o app fechado ou a tela bloqueada. "
+        "Guia rápido com tempos e temperaturas para 15 alimentos. "
+        "Sugestões de receitas diferentes a cada dia. "
+        "Agora as receitas mostram calorias estimadas, dificuldade, pré-aquecimento, "
+        "se precisa virar e o tempo de cada passo."
+    ),
+    "en-US": (
+        "Timer notifications now work with the app closed or the screen locked. "
+        "Added a quick guide with times and temperatures for 15 foods, daily recipe "
+        "suggestions, and more recipe details including estimated calories, difficulty, "
+        "preheating, turning, and step timing."
+    ),
+}
 
 
 def make_token() -> str:
@@ -83,9 +106,12 @@ def list_pages(token: str, path: str) -> list[dict]:
     return items
 
 
-def app_store_version(token: str, version_string: str) -> dict:
+def app_store_versions(token: str) -> list[dict]:
     query = urlencode({"limit": 200, "include": "build"})
-    versions = list_pages(token, f"/apps/{APP_ID}/appStoreVersions?{query}")
+    return list_pages(token, f"/apps/{APP_ID}/appStoreVersions?{query}")
+
+
+def app_store_version(versions: list[dict], version_string: str) -> dict | None:
     matches = [
         version
         for version in versions
@@ -93,18 +119,161 @@ def app_store_version(token: str, version_string: str) -> dict:
         and version.get("attributes", {}).get("versionString") == version_string
     ]
     if len(matches) != 1:
-        existing = ", ".join(
-            f"{item.get('attributes', {}).get('platform', 'unknown')} "
-            f"{item.get('attributes', {}).get('versionString', 'unknown')} "
-            f"({item.get('attributes', {}).get('appStoreState', 'unknown')})"
-            for item in versions
-        ) or "none"
-        raise RuntimeError(
-            f"Expected one iOS App Store version {version_string}; found {len(matches)}. "
-            f"Versions returned by App Store Connect: {existing}. "
-            "No submission was made."
-        )
+        if matches:
+            raise RuntimeError(f"App Store Connect returned multiple iOS versions {version_string}.")
+        return None
     return matches[0]
+
+
+def version_number(version_string: str) -> tuple[int, ...]:
+    try:
+        return tuple(int(part) for part in version_string.split("."))
+    except ValueError:
+        raise RuntimeError(f"App Store version {version_string!r} is not numeric.") from None
+
+
+def latest_ready_version(versions: list[dict], target: str) -> dict:
+    candidates = [
+        version
+        for version in versions
+        if version.get("attributes", {}).get("platform") == "IOS"
+        and version.get("attributes", {}).get("appStoreState") == "READY_FOR_SALE"
+    ]
+    if not candidates:
+        raise RuntimeError("No iOS version in Ready for Distribution state is available to copy metadata from.")
+    source = max(candidates, key=lambda item: version_number(item["attributes"]["versionString"]))
+    if version_number(target) <= version_number(source["attributes"]["versionString"]):
+        raise RuntimeError(
+            f"Target version {target} must be newer than the latest released version "
+            f"{source['attributes']['versionString']}."
+        )
+    return source
+
+
+def create_app_store_version(token: str, version_string: str, source: dict) -> dict:
+    source_attributes = source.get("attributes", {})
+    attributes: dict = {"platform": "IOS", "versionString": version_string}
+    for key in ("copyright", "releaseType", "usesIdfa"):
+        if source_attributes.get(key) is not None:
+            attributes[key] = source_attributes[key]
+    created = api_request(
+        token,
+        "/appStoreVersions",
+        method="POST",
+        body={
+            "data": {
+                "type": "appStoreVersions",
+                "attributes": attributes,
+                "relationships": {"app": {"data": {"type": "apps", "id": APP_ID}}},
+            }
+        },
+    )
+    return created["data"]
+
+
+def version_localizations(token: str, app_store_version_id: str) -> list[dict]:
+    query = urlencode(
+        {
+            "limit": 200,
+            "include": "appScreenshotSets",
+            "fields[appStoreVersionLocalizations]": ",".join(("locale", *VERSION_LOCALIZATION_FIELDS, "appScreenshotSets")),
+        }
+    )
+    return list_pages(token, f"/appStoreVersions/{app_store_version_id}/appStoreVersionLocalizations?{query}")
+
+
+def ensure_version_localizations(token: str, target_version: dict, source_version: dict) -> list[dict]:
+    source_localizations = version_localizations(token, source_version["id"])
+    if not source_localizations:
+        raise RuntimeError("The latest released version has no localized App Store metadata to carry forward.")
+
+    target_localizations = version_localizations(token, target_version["id"])
+    by_locale = {item.get("attributes", {}).get("locale"): item for item in target_localizations}
+    for source_localization in source_localizations:
+        source_attributes = source_localization.get("attributes", {})
+        locale = source_attributes.get("locale")
+        if not locale:
+            continue
+        notes = RELEASE_NOTES.get(locale)
+        if locale not in by_locale:
+            attributes = {
+                key: source_attributes[key]
+                for key in ("locale", *VERSION_LOCALIZATION_FIELDS)
+                if source_attributes.get(key) is not None
+            }
+            if notes:
+                attributes["whatsNew"] = notes
+            created = api_request(
+                token,
+                "/appStoreVersionLocalizations",
+                method="POST",
+                body={
+                    "data": {
+                        "type": "appStoreVersionLocalizations",
+                        "attributes": attributes,
+                        "relationships": {
+                            "appStoreVersion": {"data": {"type": "appStoreVersions", "id": target_version["id"]}}
+                        },
+                    }
+                },
+            )
+            by_locale[locale] = created["data"]
+        elif notes and by_locale[locale].get("attributes", {}).get("whatsNew") in {
+            None,
+            source_attributes.get("whatsNew"),
+        }:
+            localization = by_locale[locale]
+            api_request(
+                token,
+                f"/appStoreVersionLocalizations/{localization['id']}",
+                method="PATCH",
+                body={
+                    "data": {
+                        "type": "appStoreVersionLocalizations",
+                        "id": localization["id"],
+                        "attributes": {"whatsNew": notes},
+                    }
+                },
+            )
+
+    final_localizations = version_localizations(token, target_version["id"])
+    missing_locales = sorted(
+        {item.get("attributes", {}).get("locale") for item in source_localizations}
+        - {item.get("attributes", {}).get("locale") for item in final_localizations}
+    )
+    if missing_locales:
+        raise RuntimeError(f"New version is missing App Store localizations: {', '.join(missing_locales)}.")
+
+    missing_screenshots: list[str] = []
+    for localization in final_localizations:
+        locale = localization.get("attributes", {}).get("locale", "unknown")
+        relationship = localization.get("relationships", {}).get("appScreenshotSets", {}).get("data")
+        if not relationship:
+            # Some list responses omit relationship linkage even when the set exists.
+            sets = list_pages(token, f"/appStoreVersionLocalizations/{localization['id']}/appScreenshotSets?limit=200")
+        else:
+            sets = relationship
+        if not sets:
+            missing_screenshots.append(locale)
+            continue
+        if relationship and isinstance(relationship[0], dict):
+            set_ids = [item["id"] for item in relationship]
+        else:
+            set_ids = [item["id"] for item in sets]
+        if not set_ids and sets:
+            set_ids = [item["id"] for item in sets]
+        screenshot_count = 0
+        for screenshot_set_id in set_ids:
+            screenshots = list_pages(token, f"/appScreenshotSets/{screenshot_set_id}/appScreenshots?limit=200")
+            screenshot_count += len(screenshots)
+        if screenshot_count == 0:
+            missing_screenshots.append(locale)
+    if missing_screenshots:
+        raise RuntimeError(
+            "The new App Store version has no screenshots for these localizations: "
+            f"{', '.join(missing_screenshots)}. Add screenshots in App Store Connect before submitting."
+        )
+    return final_localizations
 
 
 def build_for_release(token: str, version_string: str, build_number: str) -> dict:
@@ -300,9 +469,41 @@ def main() -> None:
     if app.get("attributes", {}).get("bundleId") != BUNDLE_ID:
         raise RuntimeError(f"App Store Connect app {APP_ID} does not match bundle ID {BUNDLE_ID}.")
 
-    version = app_store_version(token, version_string)
     build = build_for_release(token, version_string, build_number)
+    versions = app_store_versions(token)
+    version = app_store_version(versions, version_string)
+    source_version = latest_ready_version(versions, version_string) if version is None else None
+    if version is None and mode == "inspect":
+        available = ", ".join(
+            f"{item.get('attributes', {}).get('versionString', 'unknown')} "
+            f"({item.get('attributes', {}).get('appStoreState', 'unknown')})"
+            for item in versions
+            if item.get("attributes", {}).get("platform") == "IOS"
+        ) or "none"
+        write_summary(
+            [
+                f"App: {app.get('attributes', {}).get('name', 'Receitas Airfryer')} ({BUNDLE_ID})",
+                f"App Store version {version_string}: not created yet.",
+                f"Valid uploaded build: {build_number} — id {build['id']}.",
+                f"Latest released version to copy metadata from: {source_version['attributes']['versionString']}.",
+                f"Versions in App Store Connect: {available}.",
+                "Read-only inspection complete; no App Store Connect data was changed.",
+            ]
+        )
+        return
+    if version is None:
+        version = create_app_store_version(token, version_string, source_version)
+        version = api_request(token, f"/appStoreVersions/{version['id']}?include=build").get("data", version)
+        write_summary(
+            [
+                f"Created App Store version {version_string} using metadata from released version {source_version['attributes']['versionString']}.",
+            ]
+        )
     version_state = version.get("attributes", {}).get("appStoreState", "UNKNOWN")
+    if mode == "submit" and version_state == "PREPARE_FOR_SUBMISSION":
+        if source_version is None:
+            source_version = latest_ready_version(versions, version_string)
+        ensure_version_localizations(token, version, source_version)
     attached_build = (version.get("relationships", {}).get("build", {}).get("data") or {}).get("id")
     active = active_submissions(token)
     active_summary = ", ".join(
