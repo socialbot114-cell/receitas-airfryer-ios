@@ -2,12 +2,33 @@ name: Receitas iOS TestFlight
 
 on:
   workflow_dispatch:
+    inputs:
+      action:
+        description: Upload a new build, inspect App Store Connect, or submit a processed build for App Review
+        required: true
+        type: choice
+        options:
+          - upload
+          - inspect
+          - submit
+        default: upload
+      app_version:
+        description: App Store version to inspect or submit
+        required: true
+        type: string
+        default: "1.2.0"
+      build_number:
+        description: Already uploaded App Store build number
+        required: true
+        type: string
+        default: "8"
 
 permissions:
   contents: read
 
 jobs:
   release:
+    if: ${{ inputs.action == 'upload' }}
     runs-on: macos-26
     timeout-minutes: 60
     steps:
@@ -119,3 +140,27 @@ jobs:
           printf '%s' "$APPLE_API_KEY_P8" > "$HOME/private_keys/AuthKey_${APPLE_API_KEY_ID}.p8"
           ipa=("$RUNNER_TEMP"/export/*.ipa)
           xcrun altool --upload-app --type ios --file "${ipa[0]}" --apiKey "$APPLE_API_KEY_ID" --apiIssuer "$APPLE_API_ISSUER_ID"
+
+  app-store-submission:
+    if: ${{ inputs.action == 'inspect' || inputs.action == 'submit' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install App Store Connect JWT dependency
+        run: python -m pip install --disable-pip-version-check 'PyJWT[crypto]'
+
+      - name: Inspect or submit App Store version
+        run: python iosApp/Scripts/submit_app_store_review.py
+        env:
+          ASC_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.APPLE_API_ISSUER_ID }}
+          ASC_P8: ${{ secrets.APPLE_API_KEY_P8 }}
+          SUBMISSION_MODE: ${{ inputs.action == 'submit' && 'submit' || 'inspect' }}
+          APP_STORE_VERSION: ${{ inputs.app_version }}
+          APP_STORE_BUILD_NUMBER: ${{ inputs.build_number }}
