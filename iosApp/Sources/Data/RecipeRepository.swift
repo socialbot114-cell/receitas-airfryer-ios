@@ -54,11 +54,18 @@ enum RecipeCatalogState: Equatable {
 
 @MainActor final class RecipeStore: ObservableObject {
     @Published private(set) var favorites: Set<String>
+    @Published private(set) var cookingSessions: [String: CookingSession]
     let repository: RecipeRepository
     private let defaults: UserDefaults
     init(defaults: UserDefaults = .standard, repository: RecipeRepository = RecipeRepository()) {
         self.defaults = defaults; self.repository = repository
         favorites = Set(defaults.stringArray(forKey: "favoriteRecipeIDs") ?? [])
+        if let data = defaults.data(forKey: "cookingSessions"),
+           let savedSessions = try? JSONDecoder().decode([String: CookingSession].self, from: data) {
+            cookingSessions = savedSessions
+        } else {
+            cookingSessions = [:]
+        }
     }
     var catalogState: RecipeCatalogState {
         if let error = repository.loadError { return .failed(error) }
@@ -69,4 +76,21 @@ enum RecipeCatalogState: Equatable {
         defaults.set(Array(favorites).sorted(), forKey: "favoriteRecipeIDs")
     }
     func isFavorite(_ recipe: Recipe) -> Bool { favorites.contains(recipe.id) }
+
+    func cookingSession(for recipeID: String) -> CookingSession? { cookingSessions[recipeID] }
+
+    func saveCookingSession(_ session: CookingSession) {
+        cookingSessions[session.recipeID] = session
+        persistCookingSessions()
+    }
+
+    func clearCookingSession(for recipeID: String) {
+        cookingSessions.removeValue(forKey: recipeID)
+        persistCookingSessions()
+    }
+
+    private func persistCookingSessions() {
+        guard let data = try? JSONEncoder().encode(cookingSessions) else { return }
+        defaults.set(data, forKey: "cookingSessions")
+    }
 }

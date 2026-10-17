@@ -1,6 +1,12 @@
 import Foundation
 
 struct CookStep: Codable, Hashable { let instruction: String; let minutes: Int }
+struct CookingSession: Codable, Equatable {
+    let recipeID: String
+    var stepIndex: Int
+    var timer: CookingTimer
+}
+
 struct Recipe: Codable, Identifiable, Hashable {
     let id: String; let name: String; let description: String; let category: String
     let mainIngredient: String; let minutes: Int; let temperature: Int; let servings: Int
@@ -15,7 +21,7 @@ extension String {
     var normalized: String { folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current).trimmingCharacters(in: .whitespacesAndNewlines) }
 }
 
-struct CookingTimer: Equatable {
+struct CookingTimer: Codable, Equatable {
     let duration: Int
     private(set) var remainingSeconds: Int
     private(set) var endDate: Date?

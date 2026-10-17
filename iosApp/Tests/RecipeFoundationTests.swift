@@ -158,4 +158,41 @@ final class RecipeFoundationTests: XCTestCase {
         XCTAssertEqual(timer.remainingSeconds, 120)
         XCTAssertFalse(timer.isRunning)
     }
+
+    func testCookingTimerRoundTripsItsDeadlineForRestoration() throws {
+        let start = Date(timeIntervalSince1970: 1_000)
+        var timer = CookingTimer(duration: 120)
+        timer.start(at: start)
+
+        let restored = try JSONDecoder().decode(CookingTimer.self, from: JSONEncoder().encode(timer))
+        XCTAssertEqual(restored.remaining(at: start.addingTimeInterval(45)), 75)
+        XCTAssertTrue(restored.isRunning)
+    }
+
+    @MainActor
+    func testCookingSessionPersistsAcrossStoreInstancesAndCanBeCleared() throws {
+        let suiteName = "CookingSessionTests.\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suiteName))
+        defer { defaults.removePersistentDomain(forName: suiteName) }
+
+        let repository = RecipeRepository(bundle: Bundle(for: Self.self))
+        let recipe = try XCTUnwrap(repository.payload.recipes.first)
+        var timer = CookingTimer(duration: 180)
+        timer.start(at: Date(timeIntervalSince1970: 2_000))
+        let session = CookingSession(recipeID: recipe.id, stepIndex: 2, timer: timer)
+
+        RecipeStore(defaults: defaults, repository: repository).saveCookingSession(session)
+        let restoredStore = RecipeStore(defaults: defaults, repository: repository)
+        XCTAssertEqual(restoredStore.cookingSession(for: recipe.id), session)
+
+        restoredStore.clearCookingSession(for: recipe.id)
+        XCTAssertNil(RecipeStore(defaults: defaults, repository: repository).cookingSession(for: recipe.id))
+    }
+
+    func testCookingTimerNotificationsUseDistinctRecipeIdentifiers() {
+        XCTAssertNotEqual(
+            CookingTimerNotifier.identifier(for: "batata-crocante"),
+            CookingTimerNotifier.identifier(for: "banana-canela")
+        )
+    }
 }

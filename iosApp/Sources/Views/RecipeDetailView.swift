@@ -93,7 +93,7 @@ struct RecipeDetailView: View {
 
             if !recipe.steps.isEmpty {
                 NavigationLink(destination: CookingModeView(recipe: recipe)) {
-                    Label("Começar a cozinhar", systemImage: "play.fill")
+                    Label(cookingActionTitle, systemImage: "play.fill")
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 7)
@@ -106,6 +106,14 @@ struct RecipeDetailView: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var cookingActionTitle: String {
+        guard let session = store.cookingSession(for: recipe.id),
+              recipe.steps.indices.contains(session.stepIndex) else {
+            return "Começar a cozinhar"
+        }
+        return "Continuar no passo \(session.stepIndex + 1)"
     }
 
     @ViewBuilder private var recipeFacts: some View {
@@ -212,11 +220,13 @@ private struct NumberedStepLabelStyle: LabelStyle {
 
 struct CookingModeView: View {
     let recipe: Recipe
+    @EnvironmentObject private var store: RecipeStore
     @Environment(\.dismiss) private var dismiss
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var step = 0
     @State private var timer: CookingTimer
+    @State private var restoredSession = false
     @State private var isFinished = false
     @State private var showTimerCompletion = false
     private let tick = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -242,12 +252,18 @@ struct CookingModeView: View {
         .toolbar(.hidden, for: .tabBar)
         .onAppear {
             CookingTimerNotifier.requestAuthorization()
-            if !timer.isRunning { timer.start(at: Date()) }
+            restoreSessionIfNeeded()
             syncNotification()
         }
-        .onDisappear { CookingTimerNotifier.cancel() }
+        .onDisappear { CookingTimerNotifier.cancel(recipeID: recipe.id) }
         .onReceive(tick) { date in refreshTimer(at: date) }
-        .onChange(of: scenePhase) { _, phase in if phase == .active { refreshTimer(at: Date()) } }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active {
+                refreshTimer(at: Date())
+                saveSession()
+                syncNotification()
+            }
+        }
         .alert("Tempo concluído", isPresented: $showTimerCompletion) { Button("OK", role: .cancel) {} } message: { Text("Este passo está pronto. Confira o alimento antes de continuar.") }
     }
 
@@ -331,8 +347,7 @@ struct CookingModeView: View {
                         .tint(ReceitasTheme.ember)
                 }
                 Button("Reiniciar") {
-                    timer.reset(startingAt: Date())
-                    syncNotification()
+                    resetTimer()
                 }
                     .buttonStyle(.bordered)
                     .tint(ReceitasTheme.ember)
@@ -377,17 +392,36 @@ struct CookingModeView: View {
 
     private var formattedTime: String { "\(timer.remainingSeconds / 60):\(String(format: "%02d", timer.remainingSeconds % 60))" }
 
+    private func restoreSessionIfNeeded() {
+        guard !restoredSession else { return }
+        restoredSession = true
+        guard !recipe.steps.isEmpty else { return }
+
+        if let session = store.cookingSession(for: recipe.id), recipe.steps.indices.contains(session.stepIndex) {
+            step = session.stepIndex
+            timer = session.timer
+            if timer.refresh(at: Date()) { showTimerCompletion = true }
+        } else {
+            step = 0
+            timer = CookingTimer(duration: recipe.steps[0].minutes * 60)
+            timer.start(at: Date())
+        }
+        saveSession()
+    }
+
     private func move(to newStep: Int) {
         step = newStep
         timer = CookingTimer(duration: recipe.steps[newStep].minutes * 60)
         timer.start(at: Date())
+        saveSession()
         syncNotification()
     }
 
     private func advance() {
         guard step + 1 < recipe.steps.count else {
             timer.pause(at: Date())
-            syncNotification()
+            store.clearCookingSession(for: recipe.id)
+            CookingTimerNotifier.cancel(recipeID: recipe.id)
             isFinished = true
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             return
@@ -397,6 +431,7 @@ struct CookingModeView: View {
 
     private func refreshTimer(at date: Date) {
         if timer.refresh(at: date) {
+            saveSession()
             syncNotification()
             showTimerCompletion = true
             UINotificationFeedbackGenerator().notificationOccurred(.success)
@@ -406,15 +441,27 @@ struct CookingModeView: View {
     private func toggleTimer() {
         if timer.isRunning { timer.pause(at: Date()) }
         else { timer.start(at: Date()) }
+        saveSession()
         syncNotification()
+    }
+
+    private func resetTimer() {
+        timer.reset(startingAt: Date())
+        saveSession()
+        syncNotification()
+    }
+
+    private func saveSession() {
+        guard recipe.steps.indices.contains(step) else { return }
+        store.saveCookingSession(CookingSession(recipeID: recipe.id, stepIndex: step, timer: timer))
     }
 
     /// Keeps the background notification aligned with the on-screen timer.
     private func syncNotification() {
         if timer.isRunning {
-            CookingTimerNotifier.schedule(recipeName: recipe.name, stepNumber: step + 1, after: timer.remaining(at: Date()))
+            CookingTimerNotifier.schedule(recipeID: recipe.id, recipeName: recipe.name, stepNumber: step + 1, after: timer.remaining(at: Date()))
         } else {
-            CookingTimerNotifier.cancel()
+            CookingTimerNotifier.cancel(recipeID: recipe.id)
         }
     }
 }

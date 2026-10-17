@@ -4,7 +4,11 @@ import UserNotifications
 /// Schedules a local notification for the running step timer so the cook is
 /// alerted even when the app is in the background or the screen is locked.
 enum CookingTimerNotifier {
-    static let identifier = "cooking-step-timer"
+    private static let identifierPrefix = "cooking-step-timer."
+
+    static func identifier(for recipeID: String) -> String {
+        identifierPrefix + recipeID
+    }
 
     private static var isUITesting: Bool { ProcessInfo.processInfo.arguments.contains("-ui-testing") }
 
@@ -21,17 +25,18 @@ enum CookingTimerNotifier {
         return content
     }
 
-    static func schedule(recipeName: String, stepNumber: Int, after seconds: Int) {
-        cancel()
+    static func schedule(recipeID: String, recipeName: String, stepNumber: Int, after seconds: Int) {
+        cancel(recipeID: recipeID)
         guard seconds > 0, !isUITesting else { return }
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(seconds), repeats: false)
-        let request = UNNotificationRequest(identifier: identifier, content: content(recipeName: recipeName, stepNumber: stepNumber), trigger: trigger)
+        let request = UNNotificationRequest(identifier: identifier(for: recipeID), content: content(recipeName: recipeName, stepNumber: stepNumber), trigger: trigger)
         UNUserNotificationCenter.current().add(request)
     }
 
-    static func cancel() {
+    static func cancel(recipeID: String) {
         let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: [identifier])
-        center.removeDeliveredNotifications(withIdentifiers: [identifier])
+        let requestID = identifier(for: recipeID)
+        center.removePendingNotificationRequests(withIdentifiers: [requestID])
+        center.removeDeliveredNotifications(withIdentifiers: [requestID])
     }
 }

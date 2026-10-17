@@ -55,6 +55,8 @@ ci = (ROOT.parent / ".github/workflows/ios.yml").read_text(encoding="utf-8")
 release = (ROOT.parent / ".github/workflows/ios-release.yml").read_text(encoding="utf-8")
 assert "xcodebuild test" in ci
 assert 'CURRENT_PROJECT_VERSION="$GITHUB_RUN_NUMBER"' in release
+marketing_version = re.search(r"MARKETING_VERSION: ([0-9.]+)", project).group(1)
+assert f"MARKETING_VERSION={marketing_version}" in release
 
 for path in ROOT.rglob("*"):
     if path.is_file() and path.name != "validate_ios.py" and path.suffix not in {".png", ".json"}:
