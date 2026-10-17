@@ -93,8 +93,15 @@ def app_store_version(token: str, version_string: str) -> dict:
         and version.get("attributes", {}).get("versionString") == version_string
     ]
     if len(matches) != 1:
+        existing = ", ".join(
+            f"{item.get('attributes', {}).get('platform', 'unknown')} "
+            f"{item.get('attributes', {}).get('versionString', 'unknown')} "
+            f"({item.get('attributes', {}).get('appStoreState', 'unknown')})"
+            for item in versions
+        ) or "none"
         raise RuntimeError(
             f"Expected one iOS App Store version {version_string}; found {len(matches)}. "
+            f"Versions returned by App Store Connect: {existing}. "
             "No submission was made."
         )
     return matches[0]
