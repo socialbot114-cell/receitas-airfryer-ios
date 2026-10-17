@@ -83,7 +83,8 @@ def api_request(token: str, path: str, method: str = "GET", body: dict | None = 
     )
     try:
         with urlopen(request, timeout=30) as response:
-            return json.load(response)
+            payload = response.read()
+            return json.loads(payload) if payload else {}
     except HTTPError as error:
         detail = error.read().decode("utf-8", errors="replace")
         try:
